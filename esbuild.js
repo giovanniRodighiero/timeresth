@@ -1,9 +1,7 @@
-const autoprefixer = require('autoprefixer');
 const postcss = require('postcss');
-const postcssNested = require('postcss-nested');
 const fs = require('fs');
 const EsBuild = require('esbuild');
-const tailwindcss = require('tailwindcss');
+const { plugins } = require('./postcss.config');
 
 console.info('NODE_ENV is set to:', process.env.NODE_ENV);
 
@@ -12,7 +10,11 @@ const postCssPlugin = {
         setup(build) {
         build.onResolve({ filter: /.\.(jsx)$/ }, () => {
             fs.readFile('src/styles.css', (err, css) => {
-                postcss([autoprefixer, postcssNested, tailwindcss])
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                postcss(plugins)
                     .process(css, { from: 'src/styles.css', to: 'dist/styles.css', map: { inline: false } })
                     .then(result => {
                         fs.writeFile('dist/styles.css', result.css, () => true)
@@ -20,6 +22,7 @@ const postCssPlugin = {
                             fs.writeFile('dist/styles.css.map', result.map.toString(), () => true)
                         }
                     })
+                    .catch(console.error)
             })
         })
     }

@@ -1,8 +1,29 @@
-const { exec } = require('node:child_process');
+const autoprefixer = require('autoprefixer');
+const postcss = require('postcss');
+const postcssNested = require('postcss-nested');
+const fs = require('fs');
 const EsBuild = require('esbuild');
-
+const tailwindcss = require('tailwindcss');
 
 console.info('NODE_ENV is set to:', process.env.NODE_ENV);
+
+const postCssPlugin = {
+    name: 'postCssPlugin',
+        setup(build) {
+        build.onResolve({ filter: /.\.(jsx)$/ }, () => {
+            fs.readFile('src/styles.css', (err, css) => {
+                postcss([autoprefixer, postcssNested, tailwindcss])
+                    .process(css, { from: 'src/styles.css', to: 'dist/styles.css', map: { inline: false } })
+                    .then(result => {
+                        fs.writeFile('dist/styles.css', result.css, () => true)
+                        if (result.map) {
+                            fs.writeFile('dist/styles.css.map', result.map.toString(), () => true)
+                        }
+                    })
+            })
+        })
+    }
+};
 
 const BASE_CONFIG = {
     entryPoints: {
@@ -12,16 +33,7 @@ const BASE_CONFIG = {
     platform: 'browser',
     bundle: true,
     outdir: 'dist',
-    plugins: [
-        {
-            name: 'tailwind',
-            setup(build) {
-                build.onResolve({ filter: /.\.(jsx)$/}, () => {
-                    exec('npx tailwindcss -i ./src/styles.css -o ./dist/styles.css');
-                })
-            }
-        }
-    ]
+    plugins: [postCssPlugin]
 };
 
 if (process.env.NODE_ENV === 'development') {

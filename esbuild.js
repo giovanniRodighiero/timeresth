@@ -7,7 +7,7 @@ console.info('NODE_ENV is set to:', process.env.NODE_ENV);
 
 const postCssPlugin = {
     name: 'postCssPlugin',
-        setup(build) {
+    setup(build) {
         build.onResolve({ filter: /.\.(jsx)$/ }, () => {
             fs.readFile('src/styles.css', (err, css) => {
                 if (err) {
@@ -16,13 +16,13 @@ const postCssPlugin = {
                 }
                 postcss(plugins)
                     .process(css, { from: 'src/styles.css', to: 'dist/styles.css', map: { inline: false } })
-                    .then(result => {
-                        fs.writeFile('dist/styles.css', result.css, () => true)
-                        if (result.map) {
-                            fs.writeFile('dist/styles.css.map', result.map.toString(), () => true)
-                        }
-                    })
-                    .catch(console.error)
+                        .then(result => {
+                            fs.writeFile('dist/styles.css', result.css, () => true)
+                            if (result.map) {
+                                fs.writeFile('dist/styles.css.map', result.map.toString(), () => true)
+                            }
+                        })
+                        .catch(console.error)
             })
         })
     }
@@ -39,12 +39,21 @@ const BASE_CONFIG = {
     plugins: [postCssPlugin]
 };
 
-if (process.env.NODE_ENV === 'development') {
-    EsBuild.serve({
-        servedir: 'dist'
-    }, BASE_CONFIG)
-        .then(server => {
-            console.log(`serving static contents at ${server.host}:${server.port}`);
-        })
-        .catch(() => process.exit(1));
+switch (process.env.NODE_ENV) {
+    case 'development':
+        EsBuild.serve({
+            servedir: 'dist'
+        }, BASE_CONFIG)
+            .then(server => {
+                console.log(`serving static contents at ${server.host}:${server.port}`);
+            })
+            .catch(() => process.exit(1));
+        break;
+
+    case 'test':
+        EsBuild.build({ ...BASE_CONFIG, minify: true })
+            .then(() => console.log('css generated'))
+            .catch(console.error);
+    default:
+        break;
 }

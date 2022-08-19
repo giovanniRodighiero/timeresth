@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Edit } from 'react-feather';
 import './button.css';
 
 /**
@@ -14,6 +15,7 @@ export const Button = ({ primary, backgroundColor, size, label, ...props }) => {
       {...props}
     >
       {label}
+      <Edit size="44px" />
     </button>
   );
 };

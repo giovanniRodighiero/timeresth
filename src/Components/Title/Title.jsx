@@ -12,7 +12,7 @@ function Title({ tag: Tag = 'h1', color = 'dark', children }) {
         'text-white': color === 'white',
     };
 
-    return <Tag className={classNames('uppercase text-3xl font-serif', colorClass)}>{children}</Tag>
+    return <Tag className={classNames('uppercase text-4xl font-serif', colorClass)}>{children}</Tag>
 };
 
 Title.propTypes = {

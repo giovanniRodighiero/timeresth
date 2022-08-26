@@ -27,13 +27,17 @@ function WorkoutCard({ workout }) {
     }, [workout.rounds]);
 
     return (
-        <article className="max-w-md bg-main rounded-md drop-shadow-md cursor-pointer">
+        <article className="max-w-md h-32 flex flex-col justify-around bg-main rounded-md drop-shadow-md cursor-pointer">
             <div className="relative py-1 border-b-2 border-white">
                 <a href={`/workouts/${workout.id}`}>
                     <h2 className="font-serif text-2xl text-dark text-center">{workout.name}</h2>
                 </a>
-                <a className="absolute top-1/2 right-2 -translate-y-1/2 bg-main text-dark" href={`/workouts/${workout.id}/edit`}>
-                    <Edit3 size="26px" />
+                <a
+                    className="absolute top-1/2 right-2 -translate-y-1/2 bg-main text-dark"
+                    href={`/workouts/${workout.id}/edit`}
+                    aria-label="Edit workout"
+                >
+                    <Edit3 size={26} />
                 </a>
             </div>
             <div className="flex justify-evenly py-1">

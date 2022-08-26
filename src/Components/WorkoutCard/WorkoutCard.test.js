@@ -63,12 +63,18 @@ describe('<WorkoutCard />', () => {
         expect(queryAllByRole('link')[1]).toHaveAttribute('href', '/workouts/abc/edit');
     });
 
+    test('Edit link has aria label', () => {
+        const { getByLabelText }  = render(<WorkoutCard workout={fakeWorkout} />);
+
+        expect(getByLabelText('Edit workout')).toBeInTheDocument();
+    });
+
     test('Stats are equal to zero if the workout has no rounds', () => {
         const { getByText, getAllByText }  = render(<WorkoutCard workout={fakeWorkout} />);
 
         expect(getByText('minutes')).toBeInTheDocument();
         expect(getByText('rounds')).toBeInTheDocument();
-        expect(getByText('exercises')).toBeTruthy();
+        expect(getByText('exercises')).toBeInTheDocument();
         expect(getAllByText('0')).toHaveLength(2);
         expect(getByText('00:00')).toBeInTheDocument();
     });

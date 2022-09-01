@@ -1,7 +1,9 @@
 const postcss = require('postcss');
 const fs = require('fs');
 const EsBuild = require('esbuild');
+
 const { plugins } = require('./postcss.config');
+const serve = require('./serve');
 
 console.info('NODE_ENV is set to:', process.env.NODE_ENV);
 
@@ -41,9 +43,7 @@ const BASE_CONFIG = {
 
 switch (process.env.NODE_ENV) {
     case 'development':
-        EsBuild.serve({
-            servedir: 'dist'
-        }, BASE_CONFIG)
+        serve('dist', 8080, BASE_CONFIG)
             .then(server => {
                 console.log(`serving static contents at ${server.host}:${server.port}`);
             })

@@ -1,11 +1,29 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+} from "react-router-dom";
 
-import MainPage from './src/MainPage';
+import HomePage from "./src/Pages/Homepage";
+import WorkoutsList from "./src/Pages/WorkoutsList";
+import WorkoutEdit from "./src/Pages/WorkoutEdit";
+import WorkoutExecution from "./src/Pages/WorkoutExecution";
+import NotFound from "./src/Pages/NotFound";
 
 const root = createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <MainPage />
+        <BrowserRouter>
+            <Routes>
+                <Route index path="/" element={<HomePage />} />
+                <Route path="workouts" element={<WorkoutsList />}>
+                    <Route path=":workoutId" element={<WorkoutExecution />} />
+                </Route>
+                <Route path="workouts/:workoutId/edit" element={<WorkoutEdit />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </BrowserRouter>
     </React.StrictMode>,
 );

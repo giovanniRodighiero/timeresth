@@ -6,7 +6,9 @@ const config = {
     transform: {
         "\\.[jt]sx?$": "./src/services/esbuild-jsx.js",
     },
-    testEnvironment: 'jsdom'
+    testEnvironment: 'jsdom',
+    collectCoverage: true,
+    // coverageProvider: 'v8'
 };
 
 module.exports = config;

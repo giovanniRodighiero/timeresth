@@ -9,6 +9,12 @@ const fakeWorkout = {
     rounds: []
 };
 
+const fakeRoundZero = {
+    exercises: [],
+    repeat: 1,
+    break: 45,
+};
+
 const fakeRoundOne = {
     "exercises": [
         {
@@ -55,7 +61,7 @@ const fakeRoundTwo = {
 
 describe('<WorkoutCard />', () => {
 
-    test('Has both links correct.', () => {
+    it('Should have the correct path for both links', () => {
         const { queryAllByRole }  = render(<WorkoutCard workout={fakeWorkout} />);
 
         expect(queryAllByRole('link')).toHaveLength(2);
@@ -63,13 +69,13 @@ describe('<WorkoutCard />', () => {
         expect(queryAllByRole('link')[1]).toHaveAttribute('href', '/workouts/abc/edit');
     });
 
-    test('Edit link has aria label', () => {
+    it('Should have the aria-label in the edit link', () => {
         const { getByLabelText }  = render(<WorkoutCard workout={fakeWorkout} />);
 
         expect(getByLabelText('Edit workout')).toBeInTheDocument();
     });
 
-    test('Stats are equal to zero if the workout has no rounds', () => {
+    it('Should render stats equal to zero when the workout has no rounds', () => {
         const { getByText, getAllByText }  = render(<WorkoutCard workout={fakeWorkout} />);
 
         expect(getByText('minutes')).toBeInTheDocument();
@@ -79,7 +85,18 @@ describe('<WorkoutCard />', () => {
         expect(getByText('00:00')).toBeInTheDocument();
     });
 
-    test('Stats have the correct value for one round', () => {
+    it('Should render stats equal to zero when the workout has rounds, but no exercises', () => {
+        const { getByText, getAllByText }  = render(<WorkoutCard workout={{ ...fakeWorkout, rounds: [ fakeRoundZero ] }} />);
+
+        expect(getByText('minutes')).toBeInTheDocument();
+        expect(getByText('rounds')).toBeInTheDocument();
+        expect(getByText('exercises')).toBeInTheDocument();
+        expect(getByText('0')).toBeInTheDocument();
+        expect(getByText('1')).toBeInTheDocument();
+        expect(getByText('00:00')).toBeInTheDocument();
+    });
+
+    it('Should render stats with the correct value when there is one round', () => {
         const { getByText }  = render(<WorkoutCard workout={{ ...fakeWorkout, rounds: [ fakeRoundOne ]}} />);
 
         expect(getByText('minutes')).toBeInTheDocument();
@@ -90,7 +107,7 @@ describe('<WorkoutCard />', () => {
         expect(getByText('09:15')).toBeInTheDocument();
     });
 
-    test('Stats have the correct value for tow rounds', () => {
+    it('Should render stats with the correct value when there is two rounds', () => {
         const { getByText }  = render(<WorkoutCard workout={{ ...fakeWorkout, rounds: [ fakeRoundOne, fakeRoundTwo ]}} />);
 
         expect(getByText('minutes')).toBeInTheDocument();

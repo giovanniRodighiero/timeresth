@@ -4,7 +4,7 @@ import { render, userEvent } from "../../services/test-utils";
 import TopBar from "./TopBar";
 
 describe("<TopBar />", () => {
-    it('should render the component without the delete button when callback not provided', () => {
+    it('Should render the component without the delete button when callback not provided', () => {
         const { getByText, queryByRole, getByLabelText } = render(<TopBar title="page title" />);
 
         expect(getByText('page title')).toBeInTheDocument();
@@ -14,7 +14,7 @@ describe("<TopBar />", () => {
         expect(queryByRole('button')).toBeNull();
     });
 
-    it('should render the component with the delete button when callback is provided', async () => {
+    it('Should render the component with the delete button when callback is provided', async () => {
         const onDelete = jest.fn();
         const user = userEvent.setup();
         const { getByRole, getByLabelText } = render(<TopBar title="page title" onDelete={onDelete} />);

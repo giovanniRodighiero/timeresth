@@ -2,13 +2,12 @@
 /** @type {import('@jest/types').Config.InitialOptions} */
 const config = {
     verbose: true,
-    setupFilesAfterEnv: ['./src/services/jest-setup.js'],
+    setupFilesAfterEnv: ['./tools/jest-setup.js'],
     transform: {
-        "\\.[jt]sx?$": "./src/services/esbuild-jsx.js",
+        "\\.[jt]sx?$": "./tools/esbuild-jsx.js",
     },
     testEnvironment: 'jsdom',
     collectCoverage: true,
-    // coverageProvider: 'v8'
 };
 
 module.exports = config;

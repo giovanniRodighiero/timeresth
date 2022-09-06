@@ -3,7 +3,7 @@ const fs = require('fs');
 const EsBuild = require('esbuild');
 
 const { plugins } = require('./postcss.config');
-const serve = require('./serve');
+const serve = require('./tools/serve');
 
 console.info('NODE_ENV is set to:', process.env.NODE_ENV);
 

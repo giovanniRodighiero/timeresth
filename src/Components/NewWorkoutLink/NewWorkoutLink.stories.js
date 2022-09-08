@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import NewWorkoutLinkCmp from './NewWorkoutLink';
+import NewWorkoutLinkCmp from "./NewWorkoutLink";
 
 export default {
-    title: 'Components/NewWorkoutLink',
+    title: "Components/NewWorkoutLink",
     component: NewWorkoutLinkCmp,
 };
 

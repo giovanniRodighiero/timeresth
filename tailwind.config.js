@@ -1,5 +1,5 @@
-const defaultColors = require('tailwindcss/colors');
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultColors = require("tailwindcss/colors");
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -8,15 +8,15 @@ module.exports = {
         extend: {
             colors: {
                 dark: defaultColors.neutral[800],
-                main: '#E76F51',
-                white: defaultColors.slate[50]
+                main: "#E76F51",
+                white: defaultColors.slate[50],
             },
             fontFamily: {
-                serif: ['Bebas Neue', defaultTheme.fontFamily.serif],
-                sans: ['Oswald', defaultTheme.fontFamily.sans],
-                display: ['Bebas Neue', 'cursive']
-            }
+                serif: ["Bebas Neue", defaultTheme.fontFamily.serif],
+                sans: ["Oswald", defaultTheme.fontFamily.sans],
+                display: ["Bebas Neue", "cursive"],
+            },
         },
     },
     plugins: [],
-}
+};

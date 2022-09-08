@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
 
-import TopBar from './TopBar';
+import TopBar from "./TopBar";
 
 export default {
-  title: 'Components/TopBar',
-  component: TopBar,
+    title: "Components/TopBar",
+    component: TopBar,
 };
 
-const Template = (args) => <TopBar {...args} />;
+const Template = args => <TopBar {...args} />;
 
 export const Update = Template.bind({});
 Update.args = {
-  title: 'Edit workout',
+    title: "Edit workout",
 };
 
 export const Create = Template.bind({});
 Create.args = {
-  title: 'Create workout',
-  onDelete: null
+    title: "Create workout",
+    onDelete: null,
 };

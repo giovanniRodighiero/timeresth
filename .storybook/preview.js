@@ -10,7 +10,7 @@ export const parameters = {
             date: /Date$/,
         },
     },
-}
+};
 
 export const decorators = [
     Story => (
@@ -19,5 +19,5 @@ export const decorators = [
                 <Route path="/page" element={<Story />}></Route>
             </Routes>
         </MemoryRouter>
-    )
+    ),
 ];

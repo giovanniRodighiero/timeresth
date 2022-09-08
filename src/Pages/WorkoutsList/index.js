@@ -1,1 +1,1 @@
-export { default } from './WorkoutsList';
+export { default } from "./WorkoutsList";

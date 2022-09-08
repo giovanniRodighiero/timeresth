@@ -14,16 +14,18 @@ function TopBar({ title, onDelete }) {
                 <ArrowLeft size={34} />
             </Link>
 
-            <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-medium text-lg">{title}</p>
+            <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-medium text-lg">
+                {title}
+            </p>
 
-            { !!onDelete && (
+            {!!onDelete && (
                 <button aria-label="Delete workout" onClick={onDelete}>
                     <Trash2 size={30} />
-                </button>)
-            }
+                </button>
+            )}
         </nav>
     );
-};
+}
 
 TopBar.propTypes = {
     /**
@@ -34,7 +36,7 @@ TopBar.propTypes = {
     /**
      * Callback for the delete button, if it's missing the button gets hidden.
      */
-    onDelete: PropTypes.func
+    onDelete: PropTypes.func,
 };
 
 export default TopBar;

@@ -13,15 +13,25 @@ function WorkoutCard({ workout }) {
         const exerciseCount = workout.rounds.reduce(increaseExCount, 0);
 
         let time = workout.rounds.reduce((acc, round) => {
-            let exercisesTime = round.exercises.reduce((exAcc, ex) => exAcc + (ex.work + ex.rest) * ex.repeat, 0);
+            let exercisesTime = round.exercises.reduce(
+                (exAcc, ex) => exAcc + (ex.work + ex.rest) * ex.repeat,
+                0
+            );
             // rest time is skipped for last exercise of the current round
-            const rest = round.exercises.length === 0 ? 0 : round.exercises[round.exercises.length - 1].rest;
+            const rest =
+                round.exercises.length === 0
+                    ? 0
+                    : round.exercises[round.exercises.length - 1].rest;
             exercisesTime = exercisesTime - rest;
-            return acc + ((exercisesTime + round.break) * round.repeat);
+            return acc + (exercisesTime + round.break) * round.repeat;
         }, 0);
 
         // breaktime is skipped for the last round of the workout
-        time = time - (workout.rounds.length > 0 ? workout.rounds[workout.rounds.length - 1].break : 0);
+        time =
+            time -
+            (workout.rounds.length > 0
+                ? workout.rounds[workout.rounds.length - 1].break
+                : 0);
         time = new Date(time * 1000).toISOString().substring(14, 19);
         return { exerciseCount, time };
     }, [workout.rounds]);
@@ -30,7 +40,9 @@ function WorkoutCard({ workout }) {
         <article className="max-w-md h-32 flex flex-col justify-around bg-main rounded-md drop-shadow-md cursor-pointer">
             <div className="relative py-1 border-b-2 border-white">
                 <a href={`/workouts/${workout.id}`}>
-                    <h2 className="font-serif text-2xl text-dark text-center">{workout.name}</h2>
+                    <h2 className="font-serif text-2xl text-dark text-center">
+                        {workout.name}
+                    </h2>
                 </a>
                 <a
                     className="absolute top-1/2 right-2 -translate-y-1/2 bg-main text-dark"
@@ -43,11 +55,14 @@ function WorkoutCard({ workout }) {
             <div className="flex justify-evenly py-1">
                 <WorkoutCardInfo label="minutes" value={stats.time} />
                 <WorkoutCardInfo label="rounds" value={workout.rounds.length} />
-                <WorkoutCardInfo label="exercises" value={stats.exerciseCount} />
+                <WorkoutCardInfo
+                    label="exercises"
+                    value={stats.exerciseCount}
+                />
             </div>
         </article>
     );
-};
+}
 
 WorkoutCard.propTypes = {
     /**
@@ -71,54 +86,57 @@ WorkoutCard.propTypes = {
          * - a number of times the set has to be executed;
          * - a break time between every round execution.
          */
-        rounds: PropTypes.arrayOf(PropTypes.shape({
-            /**
-             * Duration of the rest time after an execution of the round, in seconds
-             */
-            break: PropTypes.number.isRequired,
-
-            /**
-             * Home many times this round has to be executed
-             */
-            repeat: PropTypes.number.isRequired,
-
-            /**
-             * The set of exercises
-             */
-            exercises: PropTypes.arrayOf(PropTypes.shape({
-
+        rounds: PropTypes.arrayOf(
+            PropTypes.shape({
                 /**
-                 * Name of the exercise
+                 * Duration of the rest time after an execution of the round, in seconds
                  */
-                name: PropTypes.string.isRequired,
+                break: PropTypes.number.isRequired,
 
                 /**
-                 * Duration of the exercise, in seconds
-                 */
-                work: PropTypes.number.isRequired,
-
-                /**
-                 * Duration of the rest time after the exercise, in seconds
-                 */
-                rest: PropTypes.number.isRequired,
-
-                /**
-                 * Home many times the exercise has to be executed
+                 * Home many times this round has to be executed
                  */
                 repeat: PropTypes.number.isRequired,
-            })).isRequired,
-        })).isRequired,
-    }).isRequired
+
+                /**
+                 * The set of exercises
+                 */
+                exercises: PropTypes.arrayOf(
+                    PropTypes.shape({
+                        /**
+                         * Name of the exercise
+                         */
+                        name: PropTypes.string.isRequired,
+
+                        /**
+                         * Duration of the exercise, in seconds
+                         */
+                        work: PropTypes.number.isRequired,
+
+                        /**
+                         * Duration of the rest time after the exercise, in seconds
+                         */
+                        rest: PropTypes.number.isRequired,
+
+                        /**
+                         * Home many times the exercise has to be executed
+                         */
+                        repeat: PropTypes.number.isRequired,
+                    })
+                ).isRequired,
+            })
+        ).isRequired,
+    }).isRequired,
 };
 
-function WorkoutCardInfo({ label, value}) {
+function WorkoutCardInfo({ label, value }) {
     return (
         <div className="flex flex-1 flex-col items-center justify-evenly text-white font-sans">
             <span className="text-2xl font-medium">{value}</span>
             <span className="text-xl font-light">{label}</span>
         </div>
     );
-};
+}
 
 WorkoutCardInfo.propTypes = {
     label: PropTypes.string.isRequired,

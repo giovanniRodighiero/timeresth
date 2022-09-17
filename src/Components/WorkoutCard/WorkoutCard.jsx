@@ -37,10 +37,10 @@ function WorkoutCard({ workout }) {
     }, [workout.rounds]);
 
     return (
-        <article className="max-w-md h-32 flex flex-col justify-around bg-main rounded-md drop-shadow-md cursor-pointer">
-            <div className="relative py-1 border-b-2 border-white">
+        <article className="flex h-32 max-w-md cursor-pointer flex-col justify-around rounded-md bg-main drop-shadow-md">
+            <div className="relative border-b-2 border-white py-1">
                 <a href={`/workouts/${workout.id}`}>
-                    <h2 className="font-serif text-2xl text-dark text-center">
+                    <h2 className="text-center font-serif text-2xl text-dark">
                         {workout.name}
                     </h2>
                 </a>
@@ -131,7 +131,7 @@ WorkoutCard.propTypes = {
 
 function WorkoutCardInfo({ label, value }) {
     return (
-        <div className="flex flex-1 flex-col items-center justify-evenly text-white font-sans">
+        <div className="flex flex-1 flex-col items-center justify-evenly font-sans text-white">
             <span className="text-2xl font-medium">{value}</span>
             <span className="text-xl font-light">{label}</span>
         </div>

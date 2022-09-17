@@ -14,7 +14,7 @@ function Title({ tag: Tag = "h1", color = "dark", children }) {
 
     return (
         <Tag
-            className={classNames("uppercase text-4xl font-serif", colorClass)}
+            className={classNames("font-serif text-4xl uppercase", colorClass)}
         >
             {children}
         </Tag>

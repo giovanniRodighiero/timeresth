@@ -17,7 +17,7 @@ export function ActiveTab({ index = 0, isLast = false, onDelete }) {
 
     return (
         <div className={styles}>
-            <span className="font-light uppercase text-xl">
+            <span className="text-xl font-light uppercase">
                 round #{index + 1}
             </span>
             <button
@@ -66,7 +66,7 @@ export function Tab({ index = 0, isLast = false, onSelect }) {
             className={styles}
             onClick={_ => onSelect(index)}
         >
-            <span className="font-light uppercase text-main text-lg">
+            <span className="text-lg font-light uppercase text-main">
                 #{index + 1}
             </span>
         </button>
@@ -97,7 +97,7 @@ export function AddTab({ onAdd }) {
         <button
             aria-label="add round"
             onClick={onAdd}
-            className="absolute right-0 top-0 h-11 w-11 flex justify-center items-center border border-main rounded text-main"
+            className="absolute right-0 top-0 flex h-11 w-11 items-center justify-center rounded border border-main text-main"
         >
             <Plus size={22} />
         </button>
@@ -122,8 +122,8 @@ function RoundTabs({
     onAdd,
 }) {
     return (
-        <div className="h-11 w-full flex relative">
-            <div className="h-full w-10/12 flex overflow-scroll">
+        <div className="relative flex h-11 w-full">
+            <div className="flex h-full w-10/12 overflow-scroll">
                 {tabs.map(t =>
                     t === activeTabIndex ? (
                         <ActiveTab

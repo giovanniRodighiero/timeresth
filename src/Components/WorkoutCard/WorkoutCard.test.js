@@ -97,7 +97,7 @@ describe("<WorkoutCard />", () => {
     });
 
     it("Should render stats equal to zero when the workout has rounds, but no exercises", () => {
-        const { getByText, getAllByText } = render(
+        const { getByText } = render(
             <WorkoutCard
                 workout={{ ...fakeWorkout, rounds: [fakeRoundZero] }}
             />

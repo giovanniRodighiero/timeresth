@@ -26,6 +26,11 @@ Light.args = {
         placeholder: "Workout name",
     },
 };
+Light.parameters = {
+    backgrounds: {
+        default: "dark",
+    },
+};
 
 export const Numeric = Template.bind({});
 Numeric.args = {

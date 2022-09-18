@@ -18,6 +18,7 @@ export function PlusBtn({ onClick, light = false }) {
 
             "text-white": light,
             "border-white": light,
+            "outline-dark": light,
         },
         SHARED_STYLES
     );
@@ -52,6 +53,7 @@ export function MinusBtn({ onClick, light = false }) {
 
             "text-white": light,
             "border-white": light,
+            "outline-dark": light,
         },
         SHARED_STYLES
     );

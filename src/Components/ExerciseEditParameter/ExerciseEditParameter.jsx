@@ -1,9 +1,11 @@
 import React from "react";
+import classNames from "classnames";
 import PropTypes from "prop-types";
 
 import InputField from "../InputField";
 import { PlusBtn, MinusBtn } from "../CircleBtns/CircleBtns";
-import classNames from "classnames";
+
+import enableSpy from "../../../tools/enableSpy";
 
 /**
  * Input row composed by label, numeric input and plus-minus buttons.
@@ -22,7 +24,7 @@ function ExerciseEditCardParameter({
             "text-dark": !light,
             "text-white": light,
         },
-        "text-xl font-medium"
+        "text-xl font-medium capitalize"
     );
 
     const onBlur = () => {
@@ -88,4 +90,4 @@ ExerciseEditCardParameter.propTypes = {
     setValue: PropTypes.func.isRequired,
 };
 
-export default ExerciseEditCardParameter;
+export default enableSpy(ExerciseEditCardParameter);

@@ -32,6 +32,7 @@ function ExerciseEditCard({ exercise, onUpdateExercise, onDeleteExercise }) {
                 <button
                     className="ml-2 flex justify-center"
                     onClick={onDeleteExercise}
+                    aria-label="delete exercise"
                 >
                     <Trash2 size={28} />
                 </button>
@@ -39,21 +40,21 @@ function ExerciseEditCard({ exercise, onUpdateExercise, onDeleteExercise }) {
 
             <ExerciseEditCardParameter
                 light
-                label="Repeat"
+                label="repeat"
                 min={1}
                 setValue={onRepeatChange}
                 value={exercise.repeat}
             />
             <ExerciseEditCardParameter
                 light
-                label="Work"
+                label="work"
                 min={1}
                 setValue={onWorkChange}
                 value={exercise.work}
             />
             <ExerciseEditCardParameter
                 light
-                label="Rest"
+                label="rest"
                 min={0}
                 setValue={onRestChange}
                 value={exercise.rest}

@@ -47,6 +47,9 @@ const BASE_CONFIG = {
     bundle: true,
     outdir: "dist",
     plugins: [postCssPlugin],
+    define: {
+        UNIT_TEST: false,
+    },
 };
 
 switch (process.env.NODE_ENV) {

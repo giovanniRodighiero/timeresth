@@ -10,4 +10,11 @@ export default {
 const Template = args => <ExerciseEditCardCmpt {...args} />;
 
 export const ExerciseEditCard = Template.bind({});
-ExerciseEditCard.args = {};
+ExerciseEditCard.args = {
+    exercise: {
+        name: "Pushups",
+        repeat: 5,
+        rest: 30,
+        work: 20,
+    },
+};

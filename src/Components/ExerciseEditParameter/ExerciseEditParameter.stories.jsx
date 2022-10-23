@@ -1,9 +1,9 @@
 import React from "react";
 
-import ParameterRowCmp from "./ExerciseEditCardParameter";
+import ParameterRowCmp from "./ExerciseEditParameter";
 
 export default {
-    title: "Components/ExerciseEditCardParameter",
+    title: "Components/ExerciseEditParameter",
     component: ParameterRowCmp,
 };
 

@@ -1,28 +1,31 @@
 import React from "react";
 import { Trash2 } from "react-feather";
+import PropTypes from "prop-types";
 
+import { exercisePropTypes } from "./../../types/exercise";
 import InputField from "../InputField";
-import ParameterRow from "./ParameterRow";
+import ExerciseEditCardParameter from "../ExerciseEditParameter";
 
-function WorkoutEditCard({ onDeleteExercise }) {
-    const [values, setValue] = React.useState({ repeat: 1, work: 1, rest: 0 });
-    const onExRepeatChange = repeat => {
-        setValue(prev => ({ ...prev, repeat }));
-    };
-    const onExWorkChange = work => {
-        setValue(prev => ({ ...prev, work }));
-    };
-    const onExRestChange = rest => {
-        setValue(prev => ({ ...prev, rest }));
-    };
+/**
+ * Card with inputs to edit an exercise from the current workout.
+ * @param {Object} props - props
+ * @param {import("./../../types/exercise").Exercise} props.exercise - Exercise.
+ */
+function ExerciseEditCard({ exercise, onUpdateExercise, onDeleteExercise }) {
+    const onNameChange = e => onUpdateExercise("name", e.target.value);
+    const onRepeatChange = repeat => onUpdateExercise("repeat", repeat);
+    const onWorkChange = work => onUpdateExercise("work", work);
+    const onRestChange = rest => onUpdateExercise("rest", rest);
 
     return (
-        <article className="rounded bg-main p-2 drop-shadow-lg">
+        <article className="h-52 max-w-sm cursor-grab rounded-md bg-main p-2 drop-shadow-lg">
             <div className="flex items-center justify-between">
                 <div className="w-full">
                     <InputField
                         full
                         light
+                        value={exercise.name}
+                        onChange={onNameChange}
                         inputProps={{ placeholder: "exercise name" }}
                     />
                 </div>
@@ -34,25 +37,46 @@ function WorkoutEditCard({ onDeleteExercise }) {
                 </button>
             </div>
 
-            <ParameterRow
+            <ExerciseEditCardParameter
+                light
                 label="Repeat"
                 min={1}
-                setValue={onExRepeatChange}
-                value={values.repeat}
+                setValue={onRepeatChange}
+                value={exercise.repeat}
             />
-            <ParameterRow
+            <ExerciseEditCardParameter
+                light
                 label="Work"
                 min={1}
-                setValue={onExWorkChange}
-                value={values.work}
+                setValue={onWorkChange}
+                value={exercise.work}
             />
-            <ParameterRow
+            <ExerciseEditCardParameter
+                light
                 label="Rest"
-                setValue={onExRestChange}
-                value={values.rest}
+                min={0}
+                setValue={onRestChange}
+                value={exercise.rest}
             />
         </article>
     );
 }
 
-export default WorkoutEditCard;
+ExerciseEditCard.propTypes = {
+    /**
+     * Exercise object
+     */
+    exercise: exercisePropTypes.isRequired,
+
+    /**
+     * On value update callback
+     */
+    onUpdateExercise: PropTypes.func.isRequired,
+
+    /**
+     * On exercise delete callback
+     */
+    onDeleteExercise: PropTypes.func.isRequired,
+};
+
+export default ExerciseEditCard;

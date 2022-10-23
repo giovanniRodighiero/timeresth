@@ -9,7 +9,13 @@ import classNames from "classnames";
  * Input row composed by label, numeric input and plus-minus buttons.
  * It's supposed to be used inside the <WorkoutEditCard />
  */
-function ParameterRow({ light = false, label, min = 0, value, setValue }) {
+function ExerciseEditCardParameter({
+    light = false,
+    label,
+    min = 0,
+    value,
+    setValue,
+}) {
     const id = React.useId();
     const labelClasses = classNames(
         {
@@ -19,9 +25,12 @@ function ParameterRow({ light = false, label, min = 0, value, setValue }) {
         "text-xl font-medium"
     );
 
+    const onBlur = () => {
+        if (!value || value < min) setValue(min);
+    };
     const onInputChange = e => {
         const { value } = e.target;
-        if (value >= min) setValue(value);
+        setValue(parseInt(value) || "");
     };
     const onPlusClick = _ => setValue(value + 1);
     const onMinusClick = _ => {
@@ -38,7 +47,7 @@ function ParameterRow({ light = false, label, min = 0, value, setValue }) {
                     light={light}
                     value={value}
                     onChange={onInputChange}
-                    inputProps={{ type: "number", id }}
+                    inputProps={{ type: "number", id, onBlur, min }}
                 />
             </div>
 
@@ -52,7 +61,7 @@ function ParameterRow({ light = false, label, min = 0, value, setValue }) {
     );
 }
 
-ParameterRow.propTypes = {
+ExerciseEditCardParameter.propTypes = {
     /**
      * Has light theme
      */
@@ -71,7 +80,7 @@ ParameterRow.propTypes = {
     /**
      * Input current value
      */
-    value: PropTypes.number.isRequired,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 
     /**
      * Function to change the input value
@@ -79,4 +88,4 @@ ParameterRow.propTypes = {
     setValue: PropTypes.func.isRequired,
 };
 
-export default ParameterRow;
+export default ExerciseEditCardParameter;

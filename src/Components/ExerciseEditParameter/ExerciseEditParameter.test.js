@@ -1,7 +1,7 @@
 import React from "react";
 import { render, userEvent } from "../../../tools/test-utils";
 
-import Parameter from "./ExerciseEditCardParameter";
+import Parameter from "./ExerciseEditParameter";
 
 describe("<ExerciseEditCardParameter />", () => {
     it("Should render a label, input and two buttons with dark theme", () => {
@@ -52,21 +52,46 @@ describe("<ExerciseEditCardParameter />", () => {
         );
 
         await user.type(getByRole("spinbutton"), "5");
-        expect(spy).toHaveBeenCalledWith("25");
+        expect(spy).toHaveBeenCalledWith(25);
     });
 
-    it("Should not call setValue callback when input changes, but the value is less than the min", async () => {
+    it("Should not allow to type a value lower than min", async () => {
         const user = userEvent.setup();
         const spy = jest.fn();
         const { getByRole } = render(
             <Parameter label="repeat" min={1} value={2} setValue={spy} />
         );
-        5;
-        await user.type(getByRole("spinbutton"), "0", {
+
+        const $input = getByRole("spinbutton");
+        await user.type($input, "0", {
             initialSelectionStart: 0,
             initialSelectionEnd: 1,
         });
-        expect(spy).not.toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith("");
+    });
+
+    it("Should set the min value after blur event when the provided one is empty", async () => {
+        const spy = jest.fn();
+        const { getByRole } = render(
+            <Parameter label="repeat" min={1} value="" setValue={spy} />
+        );
+
+        const $input = getByRole("spinbutton");
+        $input.focus();
+        $input.blur();
+        expect(spy).toHaveBeenCalledWith(1);
+    });
+
+    it("Should set the min value after blur event when the provided one is less than the min", async () => {
+        const spy = jest.fn();
+        const { getByRole } = render(
+            <Parameter label="repeat" min={4} value={2} setValue={spy} />
+        );
+
+        const $input = getByRole("spinbutton");
+        $input.focus();
+        $input.blur();
+        expect(spy).toHaveBeenCalledWith(4);
     });
 
     it("Should call setValue callback when plus and minus btns are clicked", async () => {
@@ -83,7 +108,7 @@ describe("<ExerciseEditCardParameter />", () => {
         expect(spy).toHaveBeenCalledWith(1);
     });
 
-    it("Should not call setValue callback when minus is clicked, but the value is less than min", async () => {
+    it("Should not call setValue callback when minus is clicked, but the value is qual to min", async () => {
         const spy = jest.fn();
         const user = userEvent.setup();
         const { getByLabelText } = render(

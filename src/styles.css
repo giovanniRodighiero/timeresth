@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;500&display=swap");
 
+@import "../node_modules/swiper/swiper.min.css";
+@import "../node_modules/swiper/modules/pagination/pagination.min.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,4 +13,24 @@ html {
 
 * {
     @apply outline-main;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+    overflow-y: visible;
+}
+
+.swiper-slide {
+    @apply min-h-fit max-w-sm;
+}
+
+.swiper-pagination {
+    bottom: 0 !important;
+}
+
+.swiper-pagination-bullet {
+    --swiper-pagination-bullet-width: 15px;
+    --swiper-pagination-bullet-height: 15px;
+    --swiper-pagination-color: #e76f51;
 }

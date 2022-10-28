@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Edit3 } from "react-feather";
 
-const increaseExCount = (acc, { exercises }) => exercises.length + acc;
+import calcWorkoutDuration from "../../utils/calcWorkoutDuration";
+import calcWorkoutExercises from "../../utils/calcWorkoutExercises";
 
 /**
  * Component with the workout preview, not editable.
@@ -10,29 +11,10 @@ const increaseExCount = (acc, { exercises }) => exercises.length + acc;
  */
 function WorkoutCard({ workout }) {
     const stats = React.useMemo(() => {
-        const exerciseCount = workout.rounds.reduce(increaseExCount, 0);
-
-        let time = workout.rounds.reduce((acc, round) => {
-            let exercisesTime = round.exercises.reduce(
-                (exAcc, ex) => exAcc + (ex.work + ex.rest) * ex.repeat,
-                0
-            );
-            // rest time is skipped for last exercise of the current round
-            const rest =
-                round.exercises.length === 0
-                    ? 0
-                    : round.exercises[round.exercises.length - 1].rest;
-            exercisesTime = exercisesTime - rest;
-            return acc + (exercisesTime + round.break) * round.repeat;
-        }, 0);
-
-        // breaktime is skipped for the last round of the workout
-        time =
-            time -
-            (workout.rounds.length > 0
-                ? workout.rounds[workout.rounds.length - 1].break
-                : 0);
-        time = new Date(time * 1000).toISOString().substring(14, 19);
+        const exerciseCount = calcWorkoutExercises(workout);
+        const time = calcWorkoutDuration(workout)
+            .toISOString()
+            .substring(14, 19);
         return { exerciseCount, time };
     }, [workout.rounds]);
 

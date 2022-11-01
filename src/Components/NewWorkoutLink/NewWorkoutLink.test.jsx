@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "../../../tools/test-utils";
+import { render } from "../../../tools/testUtils";
 
 import NewWorkoutLink from "./NewWorkoutLink";
 

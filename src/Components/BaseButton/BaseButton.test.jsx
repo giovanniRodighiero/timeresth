@@ -1,5 +1,5 @@
 import React from "react";
-import { screen, render, userEvent } from "../../../tools/test-utils";
+import { vi, screen, render, userEvent } from "../../../tools/testUtils";
 
 import BaseButton from "./BaseButton";
 
@@ -12,14 +12,17 @@ describe("<BaseButton />", () => {
         ).toBeInTheDocument();
     });
 
-    it("Should handle html props like aria-label and disabled properly", () => {
+    it("Should handle html props like aria-label and onClick", async () => {
+        const spy = vi.fn();
+        const user = userEvent.setup();
         render(
-            <BaseButton aria-label="aria label workout" disabled>
+            <BaseButton aria-label="aria label workout" onClick={spy}>
                 start workout
             </BaseButton>
         );
 
         expect(screen.getByLabelText("aria label workout")).toBeInTheDocument();
-        expect(screen.getByLabelText("aria label workout")).toBeDisabled();
+        await user.click(screen.getByLabelText("aria label workout"));
+        expect(spy).toHaveBeenCalled();
     });
 });

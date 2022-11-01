@@ -1,20 +1,20 @@
 import React from "react";
-import { render, userEvent } from "../../../tools/test-utils";
+import { vi, render, userEvent } from "../../../tools/testUtils";
 
 import RoundTabs, { AddTab, Tab, ActiveTab } from "./RoundTabs";
 
 const mockRoundTabsProps = {
     tabs: [0, 1, 2],
     activeTabIndex: 1,
-    onDelete: jest.fn(),
-    onSelect: jest.fn(),
-    onAdd: jest.fn(),
+    onDelete: vi.fn(),
+    onSelect: vi.fn(),
+    onAdd: vi.fn(),
 };
 
 describe("<AddTab />", () => {
     it("Should render a button with correct aria", () => {
         const { getByLabelText, getByRole } = render(
-            <AddTab onAdd={jest.fn()} />
+            <AddTab onAdd={vi.fn()} />
         );
 
         expect(getByLabelText("add round")).toBeInTheDocument();
@@ -22,7 +22,7 @@ describe("<AddTab />", () => {
     });
 
     it("Should call the callback on a click event", async () => {
-        const spy = jest.fn();
+        const spy = vi.fn();
         const { getByRole } = render(<AddTab onAdd={spy} />);
         await userEvent.click(getByRole("button"));
         expect(spy).toHaveBeenCalled();
@@ -32,7 +32,7 @@ describe("<AddTab />", () => {
 describe("<Tab />", () => {
     it("Should render a button with proper aria-label and text", () => {
         const { getByLabelText, getByRole, getByText } = render(
-            <Tab index={3} onSelect={jest.fn()} />
+            <Tab index={3} onSelect={vi.fn()} />
         );
 
         expect(getByLabelText("round number 4")).toBeInTheDocument();
@@ -41,7 +41,7 @@ describe("<Tab />", () => {
     });
 
     it("Should call the callback with the index of the tab on a click event", async () => {
-        const spy = jest.fn();
+        const spy = vi.fn();
         const { getByRole } = render(<Tab index={3} onSelect={spy} />);
 
         await userEvent.click(getByRole("button"));
@@ -49,7 +49,7 @@ describe("<Tab />", () => {
     });
 
     it("Should apply the no-border-left class when the tab is not first or last", () => {
-        const { getByRole } = render(<Tab index={3} onSelect={jest.fn()} />);
+        const { getByRole } = render(<Tab index={3} onSelect={vi.fn()} />);
 
         const $btn = getByRole("button");
         expect($btn).toHaveClass("border-l-0");
@@ -57,7 +57,7 @@ describe("<Tab />", () => {
     });
 
     it("Should apply the rounded-border-left class when the tab is the first", () => {
-        const { getByRole } = render(<Tab onSelect={jest.fn()} />);
+        const { getByRole } = render(<Tab onSelect={vi.fn()} />);
 
         const $btn = getByRole("button");
         expect($btn).toHaveClass("rounded-l");
@@ -66,7 +66,7 @@ describe("<Tab />", () => {
 
     it("Should apply the rounded-border-right class when the tab is the last", () => {
         const { getByRole } = render(
-            <Tab index={2} isLast onSelect={jest.fn()} />
+            <Tab index={2} isLast onSelect={vi.fn()} />
         );
 
         const $btn = getByRole("button");
@@ -78,7 +78,7 @@ describe("<Tab />", () => {
 describe("<ActiveTab />", () => {
     it("Should render a button with correct aria-label and text", () => {
         const { getByText, getByLabelText, getByRole } = render(
-            <ActiveTab index={2} onDelete={jest.fn()} />
+            <ActiveTab index={2} onDelete={vi.fn()} />
         );
 
         expect(getByText("round #3")).toBeInTheDocument();
@@ -87,7 +87,7 @@ describe("<ActiveTab />", () => {
     });
 
     it("Should call the callback with the tab index on the delete event", async () => {
-        const spy = jest.fn();
+        const spy = vi.fn();
         const { getByRole } = render(<ActiveTab index={2} onDelete={spy} />);
 
         await userEvent.click(getByRole("button"));
@@ -96,7 +96,7 @@ describe("<ActiveTab />", () => {
 
     it("Should not have the rounded-border-left or right class when is not the first or last tab", () => {
         const { container } = render(
-            <ActiveTab index={2} onDelete={jest.fn()} />
+            <ActiveTab index={2} onDelete={vi.fn()} />
         );
 
         expect(container.firstChild.firstChild).not.toHaveClass(
@@ -105,7 +105,7 @@ describe("<ActiveTab />", () => {
     });
 
     it("Should have the rounded-border-left class when is the first tab", () => {
-        const { container } = render(<ActiveTab onDelete={jest.fn()} />);
+        const { container } = render(<ActiveTab onDelete={vi.fn()} />);
 
         expect(container.firstChild.firstChild).toHaveClass("rounded-l");
         expect(container.firstChild.firstChild).not.toHaveClass("rounded-r");
@@ -113,7 +113,7 @@ describe("<ActiveTab />", () => {
 
     it("Should have the rounded-border-right class when is the last tab", () => {
         const { container } = render(
-            <ActiveTab index={3} isLast onDelete={jest.fn()} />
+            <ActiveTab index={3} isLast onDelete={vi.fn()} />
         );
 
         expect(container.firstChild.firstChild).toHaveClass("rounded-r");
@@ -123,7 +123,7 @@ describe("<ActiveTab />", () => {
 
 describe("<RoundTabs />", () => {
     beforeAll(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     it("Should render <AddTab /> and no tabs for an empty list", async () => {

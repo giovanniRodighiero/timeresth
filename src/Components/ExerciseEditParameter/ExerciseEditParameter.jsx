@@ -5,8 +5,6 @@ import PropTypes from "prop-types";
 import InputField from "../InputField";
 import { PlusBtn, MinusBtn } from "../CircleBtns/CircleBtns";
 
-import enableSpy from "../../../tools/enableSpy";
-
 /**
  * Input row composed by label, numeric input and plus-minus buttons.
  * It's supposed to be used inside the <WorkoutEditCard />
@@ -90,4 +88,4 @@ ExerciseEditCardParameter.propTypes = {
     setValue: PropTypes.func.isRequired,
 };
 
-export default enableSpy(ExerciseEditCardParameter);
+export default ExerciseEditCardParameter;

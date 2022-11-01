@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
+import { vi } from "vitest";
 
 const AllTheProviders = ({ children }) => (
     <MemoryRouter initialEntries={["/"]}>
@@ -19,3 +20,6 @@ export { default as userEvent } from "@testing-library/user-event";
 
 // override render method
 export { customRender as render };
+
+// vitest main object
+export { vi };

@@ -1,12 +1,12 @@
 import React from "react";
-import { render, userEvent } from "../../../tools/test-utils";
+import { vi, render, userEvent } from "../../../tools/testUtils";
 
 import Parameter from "./ExerciseEditParameter";
 
 describe("<ExerciseEditCardParameter />", () => {
     it("Should render a label, input and two buttons with dark theme", () => {
         const { getAllByRole, getByText, getByRole } = render(
-            <Parameter label="repeat" value={2} setValue={jest.fn()} />
+            <Parameter label="repeat" value={2} setValue={vi.fn()} />
         );
 
         const $btns = getAllByRole("button");
@@ -26,7 +26,7 @@ describe("<ExerciseEditCardParameter />", () => {
 
     it("Should put white colors for light theme", () => {
         const { getAllByRole, getByText, getByRole } = render(
-            <Parameter light label="repeat" value={2} setValue={jest.fn()} />
+            <Parameter light label="repeat" value={2} setValue={vi.fn()} />
         );
 
         const $btns = getAllByRole("button");
@@ -45,7 +45,7 @@ describe("<ExerciseEditCardParameter />", () => {
     });
 
     it("Should call setValue callback when input changes", async () => {
-        const spy = jest.fn();
+        const spy = vi.fn();
         const user = userEvent.setup();
         const { getByRole } = render(
             <Parameter label="repeat" value={2} setValue={spy} />
@@ -57,7 +57,7 @@ describe("<ExerciseEditCardParameter />", () => {
 
     it("Should not allow to type a value lower than min", async () => {
         const user = userEvent.setup();
-        const spy = jest.fn();
+        const spy = vi.fn();
         const { getByRole } = render(
             <Parameter label="repeat" min={1} value={2} setValue={spy} />
         );
@@ -71,7 +71,7 @@ describe("<ExerciseEditCardParameter />", () => {
     });
 
     it("Should set the min value after blur event when the provided one is empty", async () => {
-        const spy = jest.fn();
+        const spy = vi.fn();
         const { getByRole } = render(
             <Parameter label="repeat" min={1} value="" setValue={spy} />
         );
@@ -83,7 +83,7 @@ describe("<ExerciseEditCardParameter />", () => {
     });
 
     it("Should set the min value after blur event when the provided one is less than the min", async () => {
-        const spy = jest.fn();
+        const spy = vi.fn();
         const { getByRole } = render(
             <Parameter label="repeat" min={4} value={2} setValue={spy} />
         );
@@ -95,7 +95,7 @@ describe("<ExerciseEditCardParameter />", () => {
     });
 
     it("Should call setValue callback when plus and minus btns are clicked", async () => {
-        const spy = jest.fn();
+        const spy = vi.fn();
         const user = userEvent.setup();
         const { getByLabelText } = render(
             <Parameter label="repeat" value={2} setValue={spy} />
@@ -109,7 +109,7 @@ describe("<ExerciseEditCardParameter />", () => {
     });
 
     it("Should not call setValue callback when minus is clicked, but the value is qual to min", async () => {
-        const spy = jest.fn();
+        const spy = vi.fn();
         const user = userEvent.setup();
         const { getByLabelText } = render(
             <Parameter label="repeat" min={1} value={1} setValue={spy} />

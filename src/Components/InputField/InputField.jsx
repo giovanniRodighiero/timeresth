@@ -2,8 +2,6 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-import enableSpy from "../../../tools/enableSpy";
-
 /**
  * Styled input field.
  * Accepts all the default html props for the input tag.
@@ -70,4 +68,4 @@ InputField.propTypes = {
     inputProps: PropTypes.object,
 };
 
-export default enableSpy(InputField);
+export default InputField;

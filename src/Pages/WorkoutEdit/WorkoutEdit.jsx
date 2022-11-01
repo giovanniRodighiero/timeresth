@@ -4,13 +4,15 @@ import { Pagination } from "swiper";
 import produce from "immer";
 import PropTypes from "prop-types";
 
-import workoutReducer from "./reducer";
 import TopBar from "../../Components/TopBar";
 import InputField from "../../Components/InputField";
 import RoundTabs from "../../Components/RoundTabs";
 import ExerciseEditCard from "../../Components/ExerciseEditCard";
 import NewExerciseCard from "../../Components/NewExerciseCard";
 import ExerciseEditCardParameter from "../../Components/ExerciseEditParameter";
+import BaseButton from "../../Components/BaseButton/BaseButton";
+import workoutReducer from "./reducer";
+import calcWorkoutDuration from "../../utils/calcWorkoutDuration";
 
 const SWIPER_MODULES = [Pagination];
 const SWIPER_PAGINATION = { clickable: true };
@@ -57,9 +59,10 @@ function WorkoutEdit({ originalWorkout = fakeWorkout }) {
         originalWorkout
     );
 
-    // const totalTime = React.useMemo(() => {
-    //     const time =
-    // }, [workout.rounds]);
+    const totalTime = React.useMemo(
+        () => calcWorkoutDuration(workout).toISOString().substring(11, 19),
+        [workout.rounds]
+    );
 
     const tabs = React.useMemo(
         () => Array.from(Array(workout.rounds.length), (_, i) => i),
@@ -70,7 +73,7 @@ function WorkoutEdit({ originalWorkout = fakeWorkout }) {
     const onWorkoutNameChange = event =>
         workoutDispatch({
             type: "UPDATE_NAME",
-            payload: event.target.value,
+            payload: { name: event.target.value },
         });
     const onRoundDelete = index => {
         if (index === workout.rounds.length - 1) setActiveRoundIndex(index - 1);
@@ -92,10 +95,10 @@ function WorkoutEdit({ originalWorkout = fakeWorkout }) {
             payload: { round: activeRoundIndex, exercise, field, value },
         });
     };
-    const onExerciseDelete = exerciseIndex => () => {
+    const onExerciseDelete = exercise => () => {
         workoutDispatch({
             type: "DELETE_EXERCISE",
-            payload: { round: activeRoundIndex, exerciseIndex },
+            payload: { round: activeRoundIndex, exercise },
         });
     };
     const onExerciseAdd = () => {
@@ -105,7 +108,8 @@ function WorkoutEdit({ originalWorkout = fakeWorkout }) {
         });
     };
 
-    console.log(tabs, workout);
+    const onStart = () => console.log("start wo", workout);
+
     return (
         <div>
             <TopBar onDelete={onWorkoutDelete} title="Update workout" />
@@ -171,6 +175,16 @@ function WorkoutEdit({ originalWorkout = fakeWorkout }) {
                     </SwiperSlide>
                 </Swiper>
             </main>
+
+            <footer className="fixed bottom-0 left-0 flex w-full justify-between border-t border-gray-300 py-3 px-2">
+                <div className="basis-2/3">
+                    <span className="mr-2 text-lg capitalize">total time:</span>
+                    <span className="text-3xl">{totalTime}</span>
+                </div>
+                <div className="flex-initial basis-1/3 text-right">
+                    <BaseButton onClick={onStart}>start</BaseButton>
+                </div>
+            </footer>
         </div>
     );
 }

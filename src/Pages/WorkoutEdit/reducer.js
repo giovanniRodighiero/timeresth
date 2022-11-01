@@ -5,6 +5,7 @@
  * @param {Object} action - Reducer action parameters.
  * @param {string} action.type - Action's type.
  * @param {Object} action.payload - Action's payload.
+ * @param {string} action.payload.name - The workout or the exercise name.
  * @param {number} action.payload.round - The index of the round that is being modified.
  * @param {string} action.payload.field - The name of the exercise or round parameter that is being modified.
  * @param {number|string} action.payload.value - The value to assign to the payload.field.
@@ -14,7 +15,7 @@ function workoutReducer(draft, action) {
     const { type, payload } = action;
     switch (type) {
         case "UPDATE_NAME":
-            draft.name = payload;
+            draft.name = payload.name;
             break;
 
         case "ADD_ROUND":
@@ -40,10 +41,7 @@ function workoutReducer(draft, action) {
             break;
 
         case "DELETE_EXERCISE":
-            draft.rounds[payload.round].exercises.splice(
-                payload.exerciseIndex,
-                1
-            );
+            draft.rounds[payload.round].exercises.splice(payload.exercise, 1);
             break;
 
         case "ADD_EXERCISE":

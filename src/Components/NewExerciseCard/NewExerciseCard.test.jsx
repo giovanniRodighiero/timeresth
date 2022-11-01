@@ -1,12 +1,12 @@
 import React from "react";
-import { render, userEvent } from "../../../tools/test-utils";
+import { vi, render, userEvent } from "../../../tools/testUtils";
 
 import NewExerciseCard from "./NewExerciseCard";
 
 describe("<NewExerciseCard />", () => {
     it("Should point to the exercise creation page", async () => {
         const user = userEvent.setup();
-        const spy = jest.fn();
+        const spy = vi.fn();
         const { getByRole } = render(<NewExerciseCard onClick={spy} />);
 
         const $btn = getByRole("button");
@@ -17,7 +17,7 @@ describe("<NewExerciseCard />", () => {
     });
 
     it("Should have the correct text inside", () => {
-        const { getByText } = render(<NewExerciseCard onClick={jest.fn()} />);
+        const { getByText } = render(<NewExerciseCard onClick={vi.fn()} />);
 
         expect(getByText("Add exercise")).toBeInTheDocument();
     });

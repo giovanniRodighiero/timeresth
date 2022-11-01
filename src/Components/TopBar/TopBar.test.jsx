@@ -1,5 +1,5 @@
 import React from "react";
-import { render, userEvent } from "../../../tools/test-utils";
+import { vi, render, userEvent } from "../../../tools/testUtils";
 
 import TopBar from "./TopBar";
 
@@ -17,7 +17,7 @@ describe("<TopBar />", () => {
     });
 
     it("Should render the component with the delete button when callback is provided", async () => {
-        const onDelete = jest.fn();
+        const onDelete = vi.fn();
         const user = userEvent.setup();
         const { getByRole, getByLabelText } = render(
             <TopBar title="page title" onDelete={onDelete} />

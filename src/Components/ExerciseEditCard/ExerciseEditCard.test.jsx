@@ -1,8 +1,8 @@
 import React from "react";
-import { screen, render, userEvent } from "../../../tools/test-utils";
+import { vi, screen, render, userEvent } from "../../../tools/testUtils";
 
-import InputField from "../InputField";
-import ExerciseEditParameter from "../ExerciseEditParameter";
+import * as InputField from "../InputField";
+import * as ExerciseEditParameter from "../ExerciseEditParameter";
 import ExerciseEditCard from "./ExerciseEditCard";
 
 const mockProps = {
@@ -12,13 +12,18 @@ const mockProps = {
         rest: 10,
         repeat: 3,
     },
-    onUpdateExercise: jest.fn(),
-    onDeleteExercise: jest.fn(),
+    onUpdateExercise: vi.fn(),
+    onDeleteExercise: vi.fn(),
 };
+
+const spyOnInputField = vi.spyOn(InputField, "default").mockReturnValue(null);
+const spyOnExerciseEditCardParameter = vi
+    .spyOn(ExerciseEditParameter, "default")
+    .mockReturnValue(null);
 
 describe("<ExerciseEditCard />", () => {
     beforeEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     it("Should display a button to delete the exercise", async () => {
@@ -33,8 +38,6 @@ describe("<ExerciseEditCard />", () => {
     });
 
     it("Should use the InputField component to handle the name parameter", () => {
-        const spyOnInputField = InputField.spyOn();
-
         render(<ExerciseEditCard {...mockProps} />);
 
         expect(spyOnInputField).toHaveBeenCalledWith(
@@ -58,9 +61,6 @@ describe("<ExerciseEditCard />", () => {
     ])(
         "Should use the ExerciseEditCardParameter component to handle the %s parameter",
         (label, value, min, indexCall) => {
-            const spyOnExerciseEditCardParameter =
-                ExerciseEditParameter.spyOn();
-
             render(<ExerciseEditCard {...mockProps} />);
 
             expect(spyOnExerciseEditCardParameter).toHaveBeenCalledWith(

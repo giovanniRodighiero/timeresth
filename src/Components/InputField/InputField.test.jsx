@@ -1,5 +1,5 @@
 import React from "react";
-import { render, userEvent } from "../../../tools/test-utils";
+import { vi, render, userEvent } from "../../../tools/testUtils";
 
 import InputField from "./InputField";
 
@@ -42,7 +42,7 @@ describe("<InputField />", () => {
     });
 
     it("Should display the provided value and call the change callback", async () => {
-        const onChange = jest.fn();
+        const onChange = vi.fn();
         const { getByRole } = render(
             <InputField value="abc def" onChange={onChange} />
         );

@@ -2,6 +2,8 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
+import enableSpy from "../../../tools/enableSpy";
+
 /**
  * Styled input field.
  * Accepts all the default html props for the input tag.
@@ -20,10 +22,13 @@ function InputField({
                     "w-full": full,
                     "border-dark": !light,
                     "border-white": light,
+                    "placeholder:text-dark": !light,
                     "text-white": light,
                     "outline-dark": light,
+                    "placeholder:text-white": light,
+                    "w-16": inputProps?.type === "number",
                 },
-                "px-2 h-9 border-2 rounded text-lg uppercase"
+                "bg-transparent placeholder:opacity-40 pl-2 h-9 border rounded text-lg uppercase"
             ),
         [full, light]
     );
@@ -65,4 +70,4 @@ InputField.propTypes = {
     inputProps: PropTypes.object,
 };
 
-export default InputField;
+export default enableSpy(InputField);

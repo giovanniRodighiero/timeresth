@@ -6,6 +6,9 @@ const TRANSFORM_CONFIG = {
     format: "cjs",
     sourcemap: true,
     sourcesContent: false,
+    define: {
+        UNIT_TEST: true,
+    },
 };
 
 module.exports = {

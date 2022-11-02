@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import HomePage from "./src/Pages/Homepage";
 import WorkoutsList from "./src/Pages/WorkoutsList";
-import WorkoutEdit from "./src/Pages/WorkoutEdit";
+import WorkoutUpdate from "./src/Pages/WorkoutUpdate";
 import WorkoutExecution from "./src/Pages/WorkoutExecution";
 import NotFound from "./src/Pages/NotFound";
 
@@ -19,7 +19,7 @@ root.render(
                 </Route>
                 <Route
                     path="workouts/:workoutId/edit"
-                    element={<WorkoutEdit />}
+                    element={<WorkoutUpdate />}
                 />
                 <Route path="*" element={<NotFound />} />
             </Routes>

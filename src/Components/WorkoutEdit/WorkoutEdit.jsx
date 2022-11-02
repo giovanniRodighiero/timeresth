@@ -4,59 +4,30 @@ import { Pagination } from "swiper";
 import produce from "immer";
 import PropTypes from "prop-types";
 
-import TopBar from "../../Components/TopBar";
 import InputField from "../../Components/InputField";
 import RoundTabs from "../../Components/RoundTabs";
 import ExerciseEditCard from "../../Components/ExerciseEditCard";
 import NewExerciseCard from "../../Components/NewExerciseCard";
 import ExerciseEditCardParameter from "../../Components/ExerciseEditParameter";
 import BaseButton from "../../Components/BaseButton/BaseButton";
-import workoutReducer from "./reducer";
+import workoutEditReducer from "./reducer";
 import calcWorkoutDuration from "../../utils/calcWorkoutDuration";
 
 const SWIPER_MODULES = [Pagination];
 const SWIPER_PAGINATION = { clickable: true };
 
-const fakeWorkout = {
-    id: "0",
-    name: "full body",
-    rounds: [
-        {
-            name: "full body",
-            exercises: [
-                {
-                    name: "squats",
-                    work: 20,
-                    rest: 10,
-                    repeat: 3,
-                },
-                {
-                    name: "push ups",
-                    work: 25,
-                    rest: 15,
-                    repeat: 1,
-                },
-                {
-                    name: "resistance band rows",
-                    work: 25,
-                    rest: 15,
-                    repeat: 1,
-                },
-            ],
-            repeat: 3,
-            break: 45,
-        },
-    ],
-};
-
 /**
- * Edit workout page
+ * Update workout page
+ * @param {import("../../types/workout").Workout} originalWorkout - Initial workout form
  */
-function WorkoutEdit({ originalWorkout = fakeWorkout }) {
+function WorkoutUpdate({ originalWorkout }) {
     const [activeRoundIndex, setActiveRoundIndex] = React.useState(0);
     const [workout, workoutDispatch] = React.useReducer(
-        produce(workoutReducer),
-        originalWorkout
+        produce(workoutEditReducer),
+        originalWorkout || {
+            name: "new workout",
+            rounds: [{ repeat: 1, break: 45, exercises: [] }],
+        }
     );
 
     const totalTime = React.useMemo(
@@ -69,7 +40,6 @@ function WorkoutEdit({ originalWorkout = fakeWorkout }) {
         [workout.rounds.length]
     );
 
-    const onWorkoutDelete = () => console.log("onDeleteWorkout");
     const onWorkoutNameChange = event =>
         workoutDispatch({
             type: "UPDATE_NAME",
@@ -111,8 +81,7 @@ function WorkoutEdit({ originalWorkout = fakeWorkout }) {
     const onStart = () => console.log("start wo", workout);
 
     return (
-        <div>
-            <TopBar onDelete={onWorkoutDelete} title="Update workout" />
+        <>
             <main className="px-2">
                 <InputField
                     full
@@ -185,8 +154,8 @@ function WorkoutEdit({ originalWorkout = fakeWorkout }) {
                     <BaseButton onClick={onStart}>start</BaseButton>
                 </div>
             </footer>
-        </div>
+        </>
     );
 }
 
-export default WorkoutEdit;
+export default WorkoutUpdate;

@@ -11,7 +11,7 @@
  * @param {number|string} action.payload.value - The value to assign to the payload.field.
  * @param {number} action.payload.exercise - The index of the exercise that is being modified.
  */
-function workoutReducer(draft, action) {
+function workoutEditReducer(draft, action) {
     const { type, payload } = action;
     switch (type) {
         case "UPDATE_NAME":
@@ -57,4 +57,4 @@ function workoutReducer(draft, action) {
     }
 }
 
-export default workoutReducer;
+export default workoutEditReducer;

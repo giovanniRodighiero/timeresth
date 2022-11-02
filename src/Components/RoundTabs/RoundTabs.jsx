@@ -20,13 +20,15 @@ export function ActiveTab({ index = 0, isLast = false, onDelete }) {
             <span className="text-xl font-light uppercase">
                 round #{index + 1}
             </span>
-            <button
-                aria-label={`delete round ${index + 1}`}
-                className="text-dark"
-                onClick={_ => onDelete(index)}
-            >
-                <XCircle size={24} />
-            </button>
+            {!(index === 0 && isLast) && (
+                <button
+                    aria-label={`delete round ${index + 1}`}
+                    className="text-dark"
+                    onClick={_ => onDelete(index)}
+                >
+                    <XCircle size={24} />
+                </button>
+            )}
         </div>
     );
 }

@@ -6,6 +6,7 @@ import HomePage from "./src/Pages/Homepage";
 import WorkoutsList from "./src/Pages/WorkoutsList";
 import WorkoutUpdate from "./src/Pages/WorkoutUpdate";
 import WorkoutExecution from "./src/Pages/WorkoutExecution";
+import WorkoutCreate from "./src/Pages/WorkoutCreate/WorkoutCreate";
 import NotFound from "./src/Pages/NotFound";
 
 const root = createRoot(document.getElementById("root"));
@@ -17,6 +18,7 @@ root.render(
                 <Route path="workouts" element={<WorkoutsList />}>
                     <Route path=":workoutId" element={<WorkoutExecution />} />
                 </Route>
+                <Route path="workouts/new" element={<WorkoutCreate />} />
                 <Route
                     path="workouts/:workoutId/edit"
                     element={<WorkoutUpdate />}

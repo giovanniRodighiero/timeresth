@@ -3,9 +3,14 @@ import { vi, render, userEvent } from "../../../tools/testUtils";
 
 import InputField from "./InputField";
 
+const mockProps = {
+    value: "",
+    onChange: vi.fn(),
+};
+
 describe("<InputField />", () => {
     it("Should render a default input with dark class and non-full width when there are no props provided", () => {
-        const { getByRole } = render(<InputField />);
+        const { getByRole } = render(<InputField {...mockProps} />);
 
         const $input = getByRole("textbox");
         expect($input).toBeInTheDocument();
@@ -14,7 +19,7 @@ describe("<InputField />", () => {
     });
 
     it("Should render a default input with light class and non-full width for light prop", () => {
-        const { getByRole } = render(<InputField light />);
+        const { getByRole } = render(<InputField {...mockProps} light />);
 
         const $input = getByRole("textbox");
         expect($input).toBeInTheDocument();
@@ -23,7 +28,7 @@ describe("<InputField />", () => {
     });
 
     it("Should render a default input with full width class for full prop", () => {
-        const { getByRole } = render(<InputField full />);
+        const { getByRole } = render(<InputField {...mockProps} full />);
 
         const $input = getByRole("textbox");
         expect($input).toBeInTheDocument();
@@ -33,7 +38,10 @@ describe("<InputField />", () => {
 
     it("Should render an input with the provided html attributes", () => {
         const { getByRole } = render(
-            <InputField inputProps={{ type: "number", min: 1 }} />
+            <InputField
+                {...mockProps}
+                inputProps={{ type: "number", min: 1 }}
+            />
         );
 
         const $input = getByRole("spinbutton");

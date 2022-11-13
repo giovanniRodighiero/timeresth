@@ -1,13 +1,13 @@
 import Workout from "../../types/workout.interface";
 
 export enum ACTIONS {
-    UPDATE_NAME,
-    ADD_ROUND,
-    DELETE_ROUND,
-    UPDATE_ROUND,
-    UPDATE_EXERCISE,
-    DELETE_EXERCISE,
-    ADD_EXERCISE,
+    UPDATE_NAME = "UPDATE_NAME",
+    ADD_ROUND = "ADD_ROUND",
+    DELETE_ROUND = "DELETE_ROUND",
+    UPDATE_ROUND = "UPDATE_ROUND",
+    UPDATE_EXERCISE = "UPDATE_EXERCISE",
+    DELETE_EXERCISE = "DELETE_EXERCISE",
+    ADD_EXERCISE = "ADD_EXERCISE",
 }
 
 type UpdateNameAction = {

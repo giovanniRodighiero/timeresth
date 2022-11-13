@@ -23,7 +23,11 @@ function WorkoutCreate() {
                 title="New workout"
             />
             <WorkoutEdit
-                originalWorkout={{ name: "", id: "aaa", rounds: [] }}
+                originalWorkout={{
+                    name: "",
+                    id: "aaa",
+                    rounds: [{ exercises: [], repeat: 1, break: 20 }],
+                }}
             />
         </div>
     );

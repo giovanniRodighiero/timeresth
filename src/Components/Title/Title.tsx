@@ -1,11 +1,21 @@
 import React from "react";
 import classNames from "classnames";
-import PropTypes from "prop-types";
+
+interface TitleInterface {
+    /** Which heading tag to render */
+    tag: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+
+    /** Which color to use */
+    color?: "white" | "dark" | "main";
+
+    /** Contents displayed */
+    children: React.ReactNode;
+}
 
 /**
  * Generic heading component.
  */
-function Title({ tag: Tag = "h1", color = "dark", children }) {
+function Title({ tag: Tag = "h1", color = "dark", children }: TitleInterface) {
     const colorClass = {
         "text-main": color === "main",
         "text-dark": color === "dark",
@@ -20,22 +30,5 @@ function Title({ tag: Tag = "h1", color = "dark", children }) {
         </Tag>
     );
 }
-
-Title.propTypes = {
-    /**
-     * Which heading tag to render
-     */
-    tag: PropTypes.oneOf(["h1", "h2", "h3", "h4", "h5", "h6"]),
-
-    /**
-     * Which color to use
-     */
-    color: PropTypes.oneOf(["white", "dark", "main"]),
-
-    /**
-     * Contents displayed
-     */
-    children: PropTypes.node.isRequired,
-};
 
 export default Title;

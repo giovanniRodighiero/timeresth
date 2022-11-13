@@ -22,7 +22,9 @@ function WorkoutUpdate() {
                 onDelete={onWorkoutDelete}
                 title="Update workout"
             />
-            <WorkoutEdit />
+            <WorkoutEdit
+                originalWorkout={{ name: "", id: "aaa", rounds: [] }}
+            />
         </div>
     );
 }

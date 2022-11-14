@@ -2,7 +2,6 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import produce from "immer";
-import PropTypes from "prop-types";
 
 import InputField from "../InputField";
 import RoundTabs from "../RoundTabs";

@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 interface TitleInterface {
     /** Which heading tag to render */
-    tag: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+    tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
     /** Which color to use */
     color?: "white" | "dark" | "main";

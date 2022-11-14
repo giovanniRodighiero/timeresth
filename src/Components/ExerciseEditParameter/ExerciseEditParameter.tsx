@@ -1,9 +1,25 @@
 import React from "react";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 
 import InputField from "../InputField";
 import { PlusBtn, MinusBtn } from "../CircleBtns/CircleBtns";
+
+interface ExerciseEditCardParameterInterface {
+    /** Has light theme */
+    light?: boolean;
+
+    /** Input label */
+    label: string;
+
+    /** Input minimum value allowed */
+    min?: number;
+
+    /** Input current value */
+    value: number;
+
+    /** Function to change the input value */
+    setValue: (newValue: number | "") => void;
+}
 
 /**
  * Input row composed by label, numeric input and plus-minus buttons.
@@ -15,7 +31,7 @@ function ExerciseEditCardParameter({
     min = 0,
     value,
     setValue,
-}) {
+}: ExerciseEditCardParameterInterface) {
     const id = React.useId();
     const labelClasses = classNames(
         {
@@ -28,12 +44,14 @@ function ExerciseEditCardParameter({
     const onBlur = () => {
         if (!value || value < min) setValue(min);
     };
-    const onInputChange = e => {
+    const onInputChange: React.ChangeEventHandler<HTMLInputElement> = e => {
         const { value } = e.target;
-        setValue(parseInt(value) || "");
+        const valueAsNumber = parseInt(value);
+        if (!isNaN(valueAsNumber)) setValue(valueAsNumber);
+        else setValue("");
     };
-    const onPlusClick = _ => setValue(value + 1);
-    const onMinusClick = _ => {
+    const onPlusClick = () => setValue(value + 1);
+    const onMinusClick = () => {
         if (value > min) setValue(value - 1);
     };
 
@@ -60,32 +78,5 @@ function ExerciseEditCardParameter({
         </div>
     );
 }
-
-ExerciseEditCardParameter.propTypes = {
-    /**
-     * Has light theme
-     */
-    light: PropTypes.bool,
-
-    /**
-     * Input label
-     */
-    label: PropTypes.string.isRequired,
-
-    /**
-     * Input minimum value allowed
-     */
-    min: PropTypes.number,
-
-    /**
-     * Input current value
-     */
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-
-    /**
-     * Function to change the input value
-     */
-    setValue: PropTypes.func.isRequired,
-};
 
 export default ExerciseEditCardParameter;

@@ -1,12 +1,24 @@
 import React from "react";
 import classNames from "classnames";
 import { XCircle, Plus } from "react-feather";
-import PropTypes from "prop-types";
 
-/**
- * Tab rapresenting a focused round that can be deleted.
- */
-export function ActiveTab({ index = 0, isLast = false, onDelete }) {
+interface ActiveTabInterface {
+    /** The tab index. */
+    index?: number;
+
+    /** Last tab of the list. */
+    isLast?: boolean;
+
+    /** When the delete action on the tab is called. */
+    onDelete: (index: number) => void;
+}
+
+/** Tab rapresenting a focused round that can be deleted. */
+export function ActiveTab({
+    index = 0,
+    isLast = false,
+    onDelete,
+}: ActiveTabInterface) {
     const styles = classNames(
         {
             "rounded-l": index === 0,
@@ -32,27 +44,20 @@ export function ActiveTab({ index = 0, isLast = false, onDelete }) {
         </div>
     );
 }
-ActiveTab.propTypes = {
-    /**
-     * The tab index.
-     */
-    index: PropTypes.number,
 
-    /**
-     * Last tab of the list.
-     */
-    isLast: PropTypes.bool,
+interface TabInterface {
+    /** The tab index. */
+    index?: number;
 
-    /**
-     * When the delete action on the tab is called.
-     */
-    onDelete: PropTypes.func.isRequired,
-};
+    /** Last tab of the list. */
+    isLast?: boolean;
 
-/**
- * Tab rapresenting a non-focused round.
- */
-export function Tab({ index = 0, isLast = false, onSelect }) {
+    /** When the delete action on the tab is called. */
+    onSelect: (index: number) => void;
+}
+
+/** Tab rapresenting a non-focused round. */
+export function Tab({ index = 0, isLast = false, onSelect }: TabInterface) {
     const styles = classNames(
         {
             "border-l-0": index > 0,
@@ -74,27 +79,14 @@ export function Tab({ index = 0, isLast = false, onSelect }) {
         </button>
     );
 }
-Tab.propTypes = {
-    /**
-     * The tab index.
-     */
-    index: PropTypes.number,
 
-    /**
-     * Last tab of the list.
-     */
-    isLast: PropTypes.bool,
+interface AddTabInterface {
+    /** When a new tab is added. */
+    onAdd: React.MouseEventHandler<HTMLButtonElement>;
+}
 
-    /**
-     * When a tab is selected.
-     */
-    onSelect: PropTypes.func.isRequired,
-};
-
-/**
- * Button to add a new tab to the list.
- */
-export function AddTab({ onAdd }) {
+/** Button to add a new tab to the list. */
+export function AddTab({ onAdd }: AddTabInterface) {
     return (
         <button
             aria-label="add round"
@@ -105,12 +97,23 @@ export function AddTab({ onAdd }) {
         </button>
     );
 }
-AddTab.propTypes = {
-    /**
-     * When a new tab is added.
-     */
-    onAdd: PropTypes.func.isRequired,
-};
+
+interface RoundTabsInterface {
+    /** Array containing the indexes of the tabs rapresenting the rounds. */
+    tabs: number[];
+
+    /** The index of the focused tab. */
+    activeTabIndex?: number;
+
+    /** When the delete action on the tab is called. */
+    onDelete: (index: number) => void;
+
+    /** When a tab is selected. */
+    onSelect: (index: number) => void;
+
+    /** When a new tab is added. */
+    onAdd: React.MouseEventHandler<HTMLButtonElement>;
+}
 
 /**
  * Round tabs widget.
@@ -122,7 +125,7 @@ function RoundTabs({
     onDelete,
     onSelect,
     onAdd,
-}) {
+}: RoundTabsInterface) {
     return (
         <div className="relative flex h-11 w-full">
             <div className="flex h-full w-10/12 overflow-scroll">
@@ -148,32 +151,5 @@ function RoundTabs({
         </div>
     );
 }
-
-RoundTabs.propTypes = {
-    /**
-     * Array containing the indexes of the tabs rapresenting the rounds.
-     */
-    tabs: PropTypes.arrayOf(PropTypes.number),
-
-    /**
-     * The index of the focused tab.
-     */
-    activeTabIndex: PropTypes.number,
-
-    /**
-     * When the delete action on the tab is called.
-     */
-    onDelete: PropTypes.func.isRequired,
-
-    /**
-     * When a tab is selected.
-     */
-    onSelect: PropTypes.func.isRequired,
-
-    /**
-     * When a new tab is added.
-     */
-    onAdd: PropTypes.func.isRequired,
-};
 
 export default RoundTabs;

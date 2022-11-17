@@ -1,9 +1,10 @@
 import workoutReducer from "../reducer";
+import { ACTIONS } from "../reducer";
 
 describe("workoutReducer", () => {
     it("Should do nothing in case of a non existing action type", () => {
         const draft = {};
-        workoutReducer({}, { type: "aaa", payload: {} });
+        workoutReducer(draft, { type: "aaa", payload: {} });
         expect(draft).toEqual({});
     });
 
@@ -13,7 +14,7 @@ describe("workoutReducer", () => {
             rounds: [],
         };
         workoutReducer(draft, {
-            type: "UPDATE_NAME",
+            type: ACTIONS.UPDATE_NAME,
             payload: { name: "workout two" },
         });
         expect(draft.rounds).toHaveLength(0);
@@ -24,7 +25,7 @@ describe("workoutReducer", () => {
         const draft = {
             rounds: [],
         };
-        workoutReducer(draft, { type: "ADD_ROUND", payload: {} });
+        workoutReducer(draft, { type: ACTIONS.ADD_ROUND, payload: {} });
         expect(draft.rounds).toHaveLength(1);
         expect(draft.rounds[0]).toEqual({
             repeat: 1,
@@ -40,7 +41,10 @@ describe("workoutReducer", () => {
                 { repeat: 2, break: 2, exercises: [] },
             ],
         };
-        workoutReducer(draft, { type: "DELETE_ROUND", payload: { round: 1 } });
+        workoutReducer(draft, {
+            type: ACTIONS.DELETE_ROUND,
+            payload: { round: 1 },
+        });
         expect(draft.rounds).toHaveLength(1);
         expect(draft.rounds[0]).toEqual({
             repeat: 1,
@@ -57,7 +61,7 @@ describe("workoutReducer", () => {
             ],
         };
         workoutReducer(draft, {
-            type: "UPDATE_ROUND",
+            type: ACTIONS.UPDATE_ROUND,
             payload: { round: 1, field: "repeat", value: 5 },
         });
         expect(draft.rounds).toHaveLength(2);
@@ -73,7 +77,7 @@ describe("workoutReducer", () => {
         });
 
         workoutReducer(draft, {
-            type: "UPDATE_ROUND",
+            type: ACTIONS.UPDATE_ROUND,
             payload: { round: 1, field: "break", value: 10 },
         });
         expect(draft.rounds).toHaveLength(2);
@@ -110,7 +114,7 @@ describe("workoutReducer", () => {
             ],
         };
         workoutReducer(draft, {
-            type: "UPDATE_EXERCISE",
+            type: ACTIONS.UPDATE_EXERCISE,
             payload: { round: 0, exercise: 1, field: "work", value: 50 },
         });
         expect(draft.rounds).toHaveLength(2);
@@ -162,7 +166,7 @@ describe("workoutReducer", () => {
             ],
         };
         workoutReducer(draft, {
-            type: "DELETE_EXERCISE",
+            type: ACTIONS.DELETE_EXERCISE,
             payload: { round: 0, exercise: 0 },
         });
         expect(draft.rounds).toHaveLength(2);
@@ -208,7 +212,7 @@ describe("workoutReducer", () => {
             ],
         };
         workoutReducer(draft, {
-            type: "ADD_EXERCISE",
+            type: ACTIONS.ADD_EXERCISE,
             payload: { round: 1 },
         });
         expect(draft.rounds).toHaveLength(2);

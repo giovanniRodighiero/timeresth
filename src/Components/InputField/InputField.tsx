@@ -1,6 +1,22 @@
 import React from "react";
 import classNames from "classnames";
-import PropTypes from "prop-types";
+
+interface InputFieldProps {
+    /** Should be displayed with the light colors */
+    light?: boolean;
+
+    /** Should be displayed as full width */
+    full?: boolean;
+
+    /** Current input value, useful for controlled inputs */
+    value: string | number;
+
+    /** onChange event callback, useful for controlled inputs */
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+
+    /** Default html input attributes, forwared to the input element */
+    inputProps?: React.HTMLProps<HTMLInputElement>;
+}
 
 /**
  * Styled input field.
@@ -11,8 +27,8 @@ function InputField({
     full = false,
     value,
     onChange,
-    inputProps = {},
-}) {
+    inputProps,
+}: InputFieldProps) {
     const classes = React.useMemo(
         () =>
             classNames(
@@ -40,32 +56,5 @@ function InputField({
         />
     );
 }
-
-InputField.propTypes = {
-    /**
-     * Should be displayed with the light colors
-     */
-    light: PropTypes.bool,
-
-    /**
-     * Should be displayed as full width
-     */
-    full: PropTypes.bool,
-
-    /**
-     * Current input value, useful for controlled inputs
-     */
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-    /**
-     * onChange event callback, useful for controlled inputs
-     */
-    onChange: PropTypes.func,
-
-    /**
-     * Default html input attributes, forwared to the input element
-     */
-    inputProps: PropTypes.object,
-};
 
 export default InputField;

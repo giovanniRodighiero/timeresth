@@ -10,7 +10,7 @@ console.info("NODE_ENV is set to:", process.env.NODE_ENV);
 const postCssPlugin = {
     name: "postCssPlugin",
     setup(build) {
-        build.onResolve({ filter: /.\.(jsx)$/ }, () => {
+        build.onResolve({ filter: /.\.(jsx|tsx)$/ }, () => {
             fs.readFile("src/styles.css", (err, css) => {
                 if (err) {
                     console.error(err);

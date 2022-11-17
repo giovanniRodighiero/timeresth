@@ -22,7 +22,13 @@ function WorkoutCreate() {
                 onDelete={onWorkoutDelete}
                 title="New workout"
             />
-            <WorkoutEdit />
+            <WorkoutEdit
+                originalWorkout={{
+                    name: "",
+                    id: "aaa",
+                    rounds: [{ exercises: [], repeat: 1, break: 20 }],
+                }}
+            />
         </div>
     );
 }

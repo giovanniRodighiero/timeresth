@@ -1,1 +1,1 @@
-export { default } from "./ExerciseEditCard.jsx";
+export { default } from "./ExerciseEditCard";

@@ -1,17 +1,29 @@
 import React from "react";
 import { Trash2 } from "react-feather";
-import PropTypes from "prop-types";
 
-import { exercisePropTypes } from "./../../types/exercise";
+import Exercise from "../../types/exercise.interface";
 import InputField from "../InputField";
 import ExerciseEditCardParameter from "../ExerciseEditParameter";
 
-/**
- * Card with inputs to edit an exercise from the current workout.
- * @param {Object} props - props
- * @param {import("./../../types/exercise").Exercise} props.exercise - Exercise.
- */
-function ExerciseEditCard({ exercise, onUpdateExercise, onDeleteExercise }) {
+type FieldName = "name" | "repeat" | "work" | "rest";
+type FieldValue<T> = T extends "name" ? string : number;
+
+interface ExerciseEditCardProps {
+    exercise: Exercise;
+    onUpdateExercise: <A extends FieldName>(
+        fieldName: A,
+        value: FieldValue<A>
+    ) => void;
+    onDeleteExercise: (
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => void;
+}
+
+function ExerciseEditCard({
+    exercise,
+    onUpdateExercise,
+    onDeleteExercise,
+}: ExerciseEditCardProps) {
     const onNameChange = e => onUpdateExercise("name", e.target.value);
     const onRepeatChange = repeat => onUpdateExercise("repeat", repeat);
     const onWorkChange = work => onUpdateExercise("work", work);
@@ -62,22 +74,5 @@ function ExerciseEditCard({ exercise, onUpdateExercise, onDeleteExercise }) {
         </article>
     );
 }
-
-ExerciseEditCard.propTypes = {
-    /**
-     * Exercise object
-     */
-    exercise: exercisePropTypes.isRequired,
-
-    /**
-     * On value update callback
-     */
-    onUpdateExercise: PropTypes.func.isRequired,
-
-    /**
-     * On exercise delete callback
-     */
-    onDeleteExercise: PropTypes.func.isRequired,
-};
 
 export default ExerciseEditCard;

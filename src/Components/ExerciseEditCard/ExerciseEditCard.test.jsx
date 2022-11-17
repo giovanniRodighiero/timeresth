@@ -16,10 +16,12 @@ const mockProps = {
     onDeleteExercise: vi.fn(),
 };
 
-const spyOnInputField = vi.spyOn(InputField, "default").mockReturnValue(null);
+const spyOnInputField = vi
+    .spyOn(InputField, "default")
+    .mockReturnValue(<span>mock</span>);
 const spyOnExerciseEditCardParameter = vi
     .spyOn(ExerciseEditParameter, "default")
-    .mockReturnValue(null);
+    .mockReturnValue(<span>mock</span>);
 
 describe("<ExerciseEditCard />", () => {
     beforeEach(() => {
@@ -50,6 +52,7 @@ describe("<ExerciseEditCard />", () => {
             },
             {}
         );
+        // @ts-ignore
         spyOnInputField.mock.calls[0][0].onChange({ target: { value: "aaa" } });
         expect(mockProps.onUpdateExercise).toHaveBeenCalledWith("name", "aaa");
     });
@@ -73,7 +76,9 @@ describe("<ExerciseEditCard />", () => {
                 },
                 {}
             );
-            spyOnExerciseEditCardParameter.mock.calls[indexCall][0].setValue(5);
+            spyOnExerciseEditCardParameter.mock.calls[indexCall]?.[0]?.setValue(
+                5
+            );
             expect(mockProps.onUpdateExercise).toHaveBeenCalledWith(label, 5);
         }
     );

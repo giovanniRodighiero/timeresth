@@ -1,16 +1,23 @@
 import React from "react";
 import classNames from "classnames";
 import { Plus, Minus } from "react-feather";
-import PropTypes from "prop-types";
 
 const SHARED_STYLES =
     "h-10 w-10 flex justify-center items-center text-center rounded-full border-2";
+
+interface BtnProps {
+    /** On click callback, when the button is pressed. */
+    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+
+    /** Light theme. */
+    light?: boolean;
+}
 
 /**
  * Circular shaped plus button.
  * Can be used inside a form to increase a field value.
  */
-export function PlusBtn({ onClick, light = false }) {
+export function PlusBtn({ onClick, light = false }: BtnProps) {
     const styles = classNames(
         {
             "text-dark": !light,
@@ -29,23 +36,12 @@ export function PlusBtn({ onClick, light = false }) {
         </button>
     );
 }
-PlusBtn.propTypes = {
-    /**
-     * On click callback, when the button is pressed.
-     */
-    onClick: PropTypes.func.isRequired,
-
-    /**
-     * Light theme.
-     */
-    light: PropTypes.bool,
-};
 
 /**
  * Circular shaped minus button.
  * Can be used inside a form to decrease a field value.
  */
-export function MinusBtn({ onClick, light = false }) {
+export function MinusBtn({ onClick, light = false }: BtnProps) {
     const styles = classNames(
         {
             "text-dark": !light,
@@ -64,14 +60,3 @@ export function MinusBtn({ onClick, light = false }) {
         </button>
     );
 }
-MinusBtn.propTypes = {
-    /**
-     * On click callback, when the button is pressed.
-     */
-    onClick: PropTypes.func.isRequired,
-
-    /**
-     * Light theme.
-     */
-    light: PropTypes.bool,
-};

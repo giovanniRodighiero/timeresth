@@ -1,10 +1,15 @@
 import React from "react";
 
+interface BaseButtonProps
+    extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    children: React.ReactNode;
+}
+
 /**
  * Base Button component.
  * Inherits all the default html button props.
  */
-function BaseButton({ children, ...props }) {
+function BaseButton({ children, ...props }: BaseButtonProps) {
     return (
         <button
             {...props}

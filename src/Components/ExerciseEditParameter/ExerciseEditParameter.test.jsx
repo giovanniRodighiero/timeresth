@@ -55,7 +55,7 @@ describe("<ExerciseEditCardParameter />", () => {
         expect(spy).toHaveBeenCalledWith(25);
     });
 
-    it("Should not allow to type a value lower than min", async () => {
+    it("Should not allow to type a value that is not a number", async () => {
         const user = userEvent.setup();
         const spy = vi.fn();
         const { getByRole } = render(
@@ -63,10 +63,22 @@ describe("<ExerciseEditCardParameter />", () => {
         );
 
         const $input = getByRole("spinbutton");
-        await user.type($input, "0", {
+        await user.type($input, "a", {
             initialSelectionStart: 0,
             initialSelectionEnd: 1,
         });
+        expect(spy).not.toHaveBeenCalled();
+    });
+
+    it("Should allow to clear the input", async () => {
+        const user = userEvent.setup();
+        const spy = vi.fn();
+        const { getByRole } = render(
+            <Parameter label="repeat" min={1} value={2} setValue={spy} />
+        );
+
+        const $input = getByRole("spinbutton");
+        await user.clear($input);
         expect(spy).toHaveBeenCalledWith("");
     });
 

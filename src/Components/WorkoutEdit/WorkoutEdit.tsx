@@ -2,25 +2,28 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import produce from "immer";
-import PropTypes from "prop-types";
 
-import InputField from "../../Components/InputField";
-import RoundTabs from "../../Components/RoundTabs";
-import ExerciseEditCard from "../../Components/ExerciseEditCard";
-import NewExerciseCard from "../../Components/NewExerciseCard";
-import ExerciseEditCardParameter from "../../Components/ExerciseEditParameter";
-import BaseButton from "../../Components/BaseButton/BaseButton";
-import workoutEditReducer from "./reducer";
+import InputField from "../InputField";
+import RoundTabs from "../RoundTabs";
+import ExerciseEditCard from "../ExerciseEditCard";
+import NewExerciseCard from "../NewExerciseCard";
+import ExerciseEditCardParameter from "../ExerciseEditParameter";
+import BaseButton from "../BaseButton/BaseButton";
+import workoutEditReducer, { ACTIONS } from "./reducer";
 import calcWorkoutDuration from "../../utils/calcWorkoutDuration";
+import Workout from "../../types/workout.interface";
 
 const SWIPER_MODULES = [Pagination];
 const SWIPER_PAGINATION = { clickable: true };
 
+interface WorkoutUpdateProps {
+    originalWorkout: Workout;
+}
+
 /**
  * Update workout page
- * @param {import("../../types/workout").Workout} originalWorkout - Initial workout form
  */
-function WorkoutUpdate({ originalWorkout }) {
+function WorkoutUpdate({ originalWorkout }: WorkoutUpdateProps) {
     const [activeRoundIndex, setActiveRoundIndex] = React.useState(0);
     const [workout, workoutDispatch] = React.useReducer(
         produce(workoutEditReducer),
@@ -42,38 +45,41 @@ function WorkoutUpdate({ originalWorkout }) {
 
     const onWorkoutNameChange = event =>
         workoutDispatch({
-            type: "UPDATE_NAME",
+            type: ACTIONS.UPDATE_NAME,
             payload: { name: event.target.value },
         });
     const onRoundDelete = index => {
         if (index === workout.rounds.length - 1) setActiveRoundIndex(index - 1);
-        workoutDispatch({ type: "DELETE_ROUND", payload: { round: index } });
+        workoutDispatch({
+            type: ACTIONS.DELETE_ROUND,
+            payload: { round: index },
+        });
     };
     const onRoundAdd = () => {
         setActiveRoundIndex(workout.rounds.length);
-        workoutDispatch({ type: "ADD_ROUND" });
+        workoutDispatch({ type: ACTIONS.ADD_ROUND });
     };
     const onRoundUpdate = field => value => {
         workoutDispatch({
-            type: "UPDATE_ROUND",
+            type: ACTIONS.UPDATE_ROUND,
             payload: { round: activeRoundIndex, field, value },
         });
     };
     const onExerciseUpdate = exercise => (field, value) => {
         workoutDispatch({
-            type: "UPDATE_EXERCISE",
+            type: ACTIONS.UPDATE_EXERCISE,
             payload: { round: activeRoundIndex, exercise, field, value },
         });
     };
     const onExerciseDelete = exercise => () => {
         workoutDispatch({
-            type: "DELETE_EXERCISE",
+            type: ACTIONS.DELETE_EXERCISE,
             payload: { round: activeRoundIndex, exercise },
         });
     };
     const onExerciseAdd = () => {
         workoutDispatch({
-            type: "ADD_EXERCISE",
+            type: ACTIONS.ADD_EXERCISE,
             payload: { round: activeRoundIndex },
         });
     };

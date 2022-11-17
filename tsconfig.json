@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "types": ["vitest/globals"],
+        "jsx": "react-jsx",
+        "esModuleInterop": true,
+        "checkJs": true,
+        "allowJs": true,
+        "noEmit": true,
+        "skipLibCheck": true,
+        "strictNullChecks": true
+    },
+    "exclude": ["node_modules", "src/**/*.test.*"],
+    "include": ["tools/vitestSetup.ts", "src/**/*"]
+}

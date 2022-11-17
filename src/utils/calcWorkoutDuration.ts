@@ -1,10 +1,8 @@
-/**
- * Get the total workout duration, including breaks and rest time.
- * @param {import("../types/workout").Workout} workout
- * @returns {Date} Total workout duration
- */
-function calcWorkoutDuration(workout) {
-    let time = workout.rounds.reduce((acc, round) => {
+import Workout from "../types/workout.interface";
+
+/** Get the total workout duration, including breaks and rest time. */
+function calcWorkoutDuration(workout: Workout): Date {
+    let totalSeconds = workout.rounds.reduce((acc, round) => {
         let exercisesTime = round.exercises.reduce(
             (exAcc, ex) => exAcc + (ex.work + ex.rest) * ex.repeat,
             0
@@ -20,9 +18,10 @@ function calcWorkoutDuration(workout) {
 
     // breaktime is skipped for the last round of the workout
     if (workout.rounds.length > 0)
-        time = time - workout.rounds[workout.rounds.length - 1].break;
+        totalSeconds =
+            totalSeconds - workout.rounds[workout.rounds.length - 1].break;
 
-    time = new Date(time * 1000);
+    const time = new Date(totalSeconds * 1000);
     return time;
 }
 

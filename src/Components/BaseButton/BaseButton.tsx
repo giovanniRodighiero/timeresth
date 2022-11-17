@@ -1,6 +1,6 @@
 import React from "react";
 
-interface BaseButtonInterface
+interface BaseButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
 }
@@ -9,7 +9,7 @@ interface BaseButtonInterface
  * Base Button component.
  * Inherits all the default html button props.
  */
-function BaseButton({ children, ...props }: BaseButtonInterface) {
+function BaseButton({ children, ...props }: BaseButtonProps) {
     return (
         <button
             {...props}

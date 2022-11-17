@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 
-interface TitleInterface {
+interface TitleProps {
     /** Which heading tag to render */
     tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
@@ -15,7 +15,7 @@ interface TitleInterface {
 /**
  * Generic heading component.
  */
-function Title({ tag: Tag = "h1", color = "dark", children }: TitleInterface) {
+function Title({ tag: Tag = "h1", color = "dark", children }: TitleProps) {
     const colorClass = {
         "text-main": color === "main",
         "text-dark": color === "dark",

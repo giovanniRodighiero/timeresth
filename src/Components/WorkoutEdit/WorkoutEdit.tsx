@@ -16,14 +16,14 @@ import Workout from "../../types/workout.interface";
 const SWIPER_MODULES = [Pagination];
 const SWIPER_PAGINATION = { clickable: true };
 
-interface WorkoutUpdateInterface {
+interface WorkoutUpdateProps {
     originalWorkout: Workout;
 }
 
 /**
  * Update workout page
  */
-function WorkoutUpdate({ originalWorkout }: WorkoutUpdateInterface) {
+function WorkoutUpdate({ originalWorkout }: WorkoutUpdateProps) {
     const [activeRoundIndex, setActiveRoundIndex] = React.useState(0);
     const [workout, workoutDispatch] = React.useReducer(
         produce(workoutEditReducer),

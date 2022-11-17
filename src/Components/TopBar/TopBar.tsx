@@ -1,7 +1,7 @@
 import React from "react";
 import { ArrowLeft, Trash2 } from "react-feather";
 
-interface TopBarInterface {
+interface TopBarProps {
     /** Title displayed in the center. */
     title: string;
 
@@ -16,7 +16,7 @@ interface TopBarInterface {
  * Navigation element on top of the page.
  * It is used in the update and create workout page.
  */
-function TopBar({ title, onDelete, onBack }: TopBarInterface) {
+function TopBar({ title, onDelete, onBack }: TopBarProps) {
     return (
         <nav className="relative mb-2 flex h-12 items-center justify-between border-b border-b-slate-200 px-2.5">
             <button onClick={onBack} aria-label="Go back to workouts">

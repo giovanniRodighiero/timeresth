@@ -4,7 +4,7 @@ import classNames from "classnames";
 import InputField from "../InputField";
 import { PlusBtn, MinusBtn } from "../CircleBtns/CircleBtns";
 
-interface ExerciseEditCardParameterInterface {
+interface ExerciseEditCardParameterProps {
     /** Has light theme */
     light?: boolean;
 
@@ -31,7 +31,7 @@ function ExerciseEditCardParameter({
     min = 0,
     value,
     setValue,
-}: ExerciseEditCardParameterInterface) {
+}: ExerciseEditCardParameterProps) {
     const id = React.useId();
     const labelClasses = classNames(
         {

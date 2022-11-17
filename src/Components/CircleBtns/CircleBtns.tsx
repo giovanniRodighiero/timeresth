@@ -5,7 +5,7 @@ import { Plus, Minus } from "react-feather";
 const SHARED_STYLES =
     "h-10 w-10 flex justify-center items-center text-center rounded-full border-2";
 
-interface BtnInterface {
+interface BtnProps {
     /** On click callback, when the button is pressed. */
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 
@@ -17,7 +17,7 @@ interface BtnInterface {
  * Circular shaped plus button.
  * Can be used inside a form to increase a field value.
  */
-export function PlusBtn({ onClick, light = false }: BtnInterface) {
+export function PlusBtn({ onClick, light = false }: BtnProps) {
     const styles = classNames(
         {
             "text-dark": !light,
@@ -41,7 +41,7 @@ export function PlusBtn({ onClick, light = false }: BtnInterface) {
  * Circular shaped minus button.
  * Can be used inside a form to decrease a field value.
  */
-export function MinusBtn({ onClick, light = false }: BtnInterface) {
+export function MinusBtn({ onClick, light = false }: BtnProps) {
     const styles = classNames(
         {
             "text-dark": !light,

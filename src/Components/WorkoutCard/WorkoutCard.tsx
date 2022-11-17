@@ -5,7 +5,7 @@ import calcWorkoutDuration from "../../utils/calcWorkoutDuration";
 import calcWorkoutExercises from "../../utils/calcWorkoutExercises";
 import Workout from "../../types/workout.interface";
 
-interface WorkoutCardInterface {
+interface WorkoutCardProps {
     workout: Workout;
 }
 
@@ -13,7 +13,7 @@ interface WorkoutCardInterface {
  * Component with the workout preview, not editable.
  * Has a link to the execution page and to the edit page.
  */
-function WorkoutCard({ workout }: WorkoutCardInterface) {
+function WorkoutCard({ workout }: WorkoutCardProps) {
     const stats = React.useMemo(() => {
         const exerciseCount = calcWorkoutExercises(workout);
         const time = calcWorkoutDuration(workout)
@@ -50,12 +50,12 @@ function WorkoutCard({ workout }: WorkoutCardInterface) {
     );
 }
 
-interface WorkoutCardInfoInterface {
+interface WorkoutCardInfoProps {
     label: string;
     value: string | number;
 }
 
-function WorkoutCardInfo({ label, value }: WorkoutCardInfoInterface) {
+function WorkoutCardInfo({ label, value }: WorkoutCardInfoProps) {
     return (
         <div className="flex flex-1 flex-col items-center justify-evenly font-sans text-white">
             <span className="text-2xl font-medium">{value}</span>

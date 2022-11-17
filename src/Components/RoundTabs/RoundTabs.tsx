@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import { XCircle, Plus } from "react-feather";
 
-interface ActiveTabInterface {
+interface ActiveTabProps {
     /** The tab index. */
     index?: number;
 
@@ -18,7 +18,7 @@ export function ActiveTab({
     index = 0,
     isLast = false,
     onDelete,
-}: ActiveTabInterface) {
+}: ActiveTabProps) {
     const styles = classNames(
         {
             "rounded-l": index === 0,
@@ -45,7 +45,7 @@ export function ActiveTab({
     );
 }
 
-interface TabInterface {
+interface TabProps {
     /** The tab index. */
     index?: number;
 
@@ -57,7 +57,7 @@ interface TabInterface {
 }
 
 /** Tab rapresenting a non-focused round. */
-export function Tab({ index = 0, isLast = false, onSelect }: TabInterface) {
+export function Tab({ index = 0, isLast = false, onSelect }: TabProps) {
     const styles = classNames(
         {
             "border-l-0": index > 0,
@@ -80,13 +80,13 @@ export function Tab({ index = 0, isLast = false, onSelect }: TabInterface) {
     );
 }
 
-interface AddTabInterface {
+interface AddTabProps {
     /** When a new tab is added. */
     onAdd: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 /** Button to add a new tab to the list. */
-export function AddTab({ onAdd }: AddTabInterface) {
+export function AddTab({ onAdd }: AddTabProps) {
     return (
         <button
             aria-label="add round"
@@ -98,7 +98,7 @@ export function AddTab({ onAdd }: AddTabInterface) {
     );
 }
 
-interface RoundTabsInterface {
+interface RoundTabsProps {
     /** Array containing the indexes of the tabs rapresenting the rounds. */
     tabs: number[];
 
@@ -125,7 +125,7 @@ function RoundTabs({
     onDelete,
     onSelect,
     onAdd,
-}: RoundTabsInterface) {
+}: RoundTabsProps) {
     return (
         <div className="relative flex h-11 w-full">
             <div className="flex h-full w-10/12 overflow-scroll">

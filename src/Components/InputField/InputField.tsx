@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 
-interface InputFieldInterface {
+interface InputFieldProps {
     /** Should be displayed with the light colors */
     light?: boolean;
 
@@ -28,7 +28,7 @@ function InputField({
     value,
     onChange,
     inputProps,
-}: InputFieldInterface) {
+}: InputFieldProps) {
     const classes = React.useMemo(
         () =>
             classNames(

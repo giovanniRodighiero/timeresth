@@ -8,7 +8,7 @@ import ExerciseEditCardParameter from "../ExerciseEditParameter";
 type FieldName = "name" | "repeat" | "work" | "rest";
 type FieldValue<T> = T extends "name" ? string : number;
 
-interface ExerciseEditCardInterface {
+interface ExerciseEditCardProps {
     exercise: Exercise;
     onUpdateExercise: <A extends FieldName>(
         fieldName: A,
@@ -23,7 +23,7 @@ function ExerciseEditCard({
     exercise,
     onUpdateExercise,
     onDeleteExercise,
-}: ExerciseEditCardInterface) {
+}: ExerciseEditCardProps) {
     const onNameChange = e => onUpdateExercise("name", e.target.value);
     const onRepeatChange = repeat => onUpdateExercise("repeat", repeat);
     const onWorkChange = work => onUpdateExercise("work", work);

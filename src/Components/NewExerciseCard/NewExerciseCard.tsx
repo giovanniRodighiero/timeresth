@@ -3,7 +3,7 @@ import { PlusCircle } from "react-feather";
 
 import Title from "../Title";
 
-interface NewExerciseCardInterface {
+interface NewExerciseCardProps {
     /** Component's click callback. */
     onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
@@ -12,7 +12,7 @@ interface NewExerciseCardInterface {
  * New exercise card placeholder, last element of the exercises row inside the workout edit page.
  * Simple gray card with title and icon.
  */
-function NewExerciseCard({ onClick }: NewExerciseCardInterface) {
+function NewExerciseCard({ onClick }: NewExerciseCardProps) {
     return (
         <button
             onClick={onClick}

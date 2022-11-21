@@ -9,6 +9,6 @@
         "skipLibCheck": true,
         "strictNullChecks": true
     },
-    "exclude": ["node_modules", "src/**/*.test.*"],
+    "exclude": ["node_modules", "src/**/*.test.jsx", "src/**/*.test.js"],
     "include": ["tools/vitestSetup.ts", "src/**/*"]
 }

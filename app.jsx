@@ -15,10 +15,12 @@ root.render(
         <BrowserRouter>
             <Routes>
                 <Route index path="/" element={<HomePage />} />
-                <Route path="workouts" element={<WorkoutsList />}>
-                    <Route path=":workoutId" element={<WorkoutExecution />} />
-                </Route>
+                <Route path="workouts" element={<WorkoutsList />} />
                 <Route path="workouts/new" element={<WorkoutCreate />} />
+                <Route
+                    path="workouts/:workoutId"
+                    element={<WorkoutExecution />}
+                />
                 <Route
                     path="workouts/:workoutId/edit"
                     element={<WorkoutUpdate />}

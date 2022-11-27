@@ -3,7 +3,7 @@ import React from "react";
 import PlayPauseButtonCmp from "./PlayPauseButton";
 
 export default {
-    title: "Components/PlayPauseButton",
+    title: "Components/ExerciseExecution/PlayPauseButton",
     component: PlayPauseButtonCmp,
 };
 

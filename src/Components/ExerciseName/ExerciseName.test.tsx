@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, userEvent } from "../../../tools/testUtils";
+import { render, screen } from "../../../tools/testUtils";
 
 import ExerciseName from "./ExerciseName";
 

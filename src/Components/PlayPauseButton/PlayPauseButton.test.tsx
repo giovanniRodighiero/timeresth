@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, screen, userEvent } from "../../../tools/testUtils";
+import { render, screen, userEvent } from "../../../tools/testUtils";
 
 import PlayPauseButton from "./PlayPauseButton";
 

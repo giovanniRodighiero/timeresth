@@ -3,6 +3,8 @@
 @import "../node_modules/swiper/swiper.min.css";
 @import "../node_modules/swiper/modules/pagination/pagination.min.css";
 
+@import "../node_modules/react-circular-progressbar/dist/styles.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -33,4 +35,8 @@ html {
     --swiper-pagination-bullet-width: 15px;
     --swiper-pagination-bullet-height: 15px;
     --swiper-pagination-color: #e76f51;
+}
+
+.CircularProgressbar .CircularProgressbar-path {
+    stroke: #e76f51;
 }

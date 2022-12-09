@@ -23,7 +23,7 @@ function WorkoutCard({ workout }: WorkoutCardProps) {
     }, [workout.rounds]);
 
     return (
-        <article className="flex h-32 max-w-md cursor-pointer flex-col justify-around rounded-md bg-main drop-shadow-md">
+        <article className="mx-auto flex h-32 max-w-md cursor-pointer flex-col justify-around rounded-md bg-main drop-shadow-md">
             <div className="relative border-b-2 border-white py-1">
                 <a href={`/workouts/${workout.id}`}>
                     <h2 className="text-center font-serif text-2xl text-dark">

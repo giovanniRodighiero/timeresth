@@ -25,7 +25,7 @@ function WorkoutCreate() {
             <WorkoutEdit
                 originalWorkout={{
                     name: "",
-                    id: "aaa",
+                    id: 123,
                     rounds: [{ exercises: [], repeat: 1, break: 20 }],
                 }}
             />

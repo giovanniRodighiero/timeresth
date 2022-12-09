@@ -3,7 +3,7 @@ import Round from "./round.interface";
 /** A complete workout. */
 interface Workout {
     /** Workout's id. */
-    id: string;
+    id: number;
 
     /** Workout's name. */
     name: string;

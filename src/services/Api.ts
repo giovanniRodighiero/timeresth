@@ -66,3 +66,28 @@ export async function getWorkout(id: number): Promise<getWorkoutInterface> {
         return { workout: null, error: { generic: true } };
     }
 }
+
+interface updateWorkoutInterface {
+    error?: {
+        generic?: boolean;
+    };
+}
+export async function updateWorkout(id: number, workout: Workout): Promise<updateWorkoutInterface> {
+    try {
+        const { error, status } = await supabaseClient
+            .from("workouts")
+            .update({
+                name: workout.name,
+                data: { rounds: workout.rounds }
+            })
+            .eq("id", id);
+
+        console.log(error, status)
+        if (error && status !== 406)
+            return { error: { generic: true } };
+
+        return {};
+    } catch (error) {
+        return { error: { generic: true } };
+    }
+}

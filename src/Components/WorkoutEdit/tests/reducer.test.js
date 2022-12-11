@@ -8,6 +8,19 @@ describe("workoutReducer", () => {
         expect(draft).toEqual({});
     });
 
+    it("Should replace the draft for the action: INIT", () => {
+        const draft = {};
+        workoutReducer(draft, { type: ACTIONS.INIT, payload: {
+            name: "name of workout",
+            rounds: [{ repeat: 1, break: 1, exercises: [] }]
+        } });
+        expect(draft).toEqual({
+            hasChanges: false,
+            name: "name of workout",
+            rounds: [{ repeat: 1, break: 1, exercises: [] }]
+        });
+    });
+
     it("Should update the workout name for the action: UPDATE_NAME", () => {
         const draft = {
             name: "workout one",
@@ -93,7 +106,7 @@ describe("workoutReducer", () => {
         });
     });
 
-    it("Should update an exercise inside a round of the workout for the action: UPDATE_EXERCISE", () => {
+    it("Should update an exercise inside a round of the workout for the action: UPDATE_EXERCISE_STR", () => {
         const draft = {
             rounds: [
                 {
@@ -114,8 +127,60 @@ describe("workoutReducer", () => {
             ],
         };
         workoutReducer(draft, {
-            type: ACTIONS.UPDATE_EXERCISE,
-            payload: { round: 0, exercise: 1, field: "work", value: 50 },
+            type: ACTIONS.UPDATE_EXERCISE_STR,
+            payload: { round: 0, exercise: 1, field: "name", value: "new name" },
+        });
+        expect(draft.rounds).toHaveLength(2);
+        expect(draft.rounds[0].repeat).toBe(1);
+        expect(draft.rounds[0].break).toBe(1);
+        expect(draft.rounds[0].exercises).toHaveLength(2);
+        expect(draft.rounds[0].exercises[0]).toEqual({
+            name: "ex one",
+            work: 11,
+            rest: 11,
+            repeat: 11,
+        });
+        expect(draft.rounds[0].exercises[1]).toEqual({
+            name: "new name",
+            work: 22,
+            rest: 22,
+            repeat: 22,
+        });
+
+        expect(draft.rounds[1].repeat).toBe(2);
+        expect(draft.rounds[1].break).toBe(2);
+        expect(draft.rounds[1].exercises).toHaveLength(1);
+        expect(draft.rounds[1].exercises[0]).toEqual({
+            name: "ex three",
+            work: 33,
+            rest: 33,
+            repeat: 33,
+        });
+    });
+
+    it("Should update an exercise inside a round of the workout for the action: UPDATE_EXERCISE_NUM", () => {
+        const draft = {
+            rounds: [
+                {
+                    repeat: 1,
+                    break: 1,
+                    exercises: [
+                        { name: "ex one", work: 11, rest: 11, repeat: 11 },
+                        { name: "ex two", work: 22, rest: 22, repeat: 22 },
+                    ],
+                },
+                {
+                    repeat: 2,
+                    break: 2,
+                    exercises: [
+                        { name: "ex three", work: 33, rest: 33, repeat: 33 },
+                    ],
+                },
+            ],
+        };
+        workoutReducer(draft, {
+            type: ACTIONS.UPDATE_EXERCISE_NUM,
+            payload: { round: 0, exercise: 1, field: "repeat", value: 9 },
         });
         expect(draft.rounds).toHaveLength(2);
         expect(draft.rounds[0].repeat).toBe(1);
@@ -129,9 +194,9 @@ describe("workoutReducer", () => {
         });
         expect(draft.rounds[0].exercises[1]).toEqual({
             name: "ex two",
-            work: 50,
+            work: 22,
             rest: 22,
-            repeat: 22,
+            repeat: 9,
         });
 
         expect(draft.rounds[1].repeat).toBe(2);

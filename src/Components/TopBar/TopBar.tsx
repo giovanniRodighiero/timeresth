@@ -6,7 +6,7 @@ interface TopBarProps {
     title: string;
 
     /** Callback for the delete button, if it's missing the button gets hidden. */
-    onDelete: React.MouseEventHandler<HTMLButtonElement>;
+    onDelete?: React.MouseEventHandler<HTMLButtonElement>;
 
     /** Callback for the back button. */
     onBack: React.MouseEventHandler<HTMLButtonElement>;

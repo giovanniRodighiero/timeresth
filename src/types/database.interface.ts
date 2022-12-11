@@ -32,7 +32,9 @@ export interface Database {
                     id?: number;
                     inserted_at?: string;
                     updated_at?: string;
-                    data?: Json | null;
+                    data?: {
+                        rounds: Round[];
+                    };
                     name?: string;
                 };
             };

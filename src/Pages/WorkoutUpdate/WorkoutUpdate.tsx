@@ -1,10 +1,14 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import produce from "immer";
 
 import TopBar from "../../Components/TopBar";
 import WorkoutEdit from "../../Components/WorkoutEdit";
-import Workout from "../../types/workout.interface";
-import { getWorkout } from "../../services/Api";
+
+import workoutEditReducer, {
+    ACTIONS,
+} from "../../Components/WorkoutEdit/reducer";
+import { getWorkout, updateWorkout } from "../../services/Api";
 
 type RouteParams = {
     workoutId: string;
@@ -15,22 +19,38 @@ type RouteParams = {
  */
 function WorkoutUpdate() {
     const [isLoading, setLoading] = React.useState<boolean>(true);
-    const [workout, setWorkout] = React.useState<Workout | null>();
+    const [workout, workoutDispatch] = React.useReducer(
+        produce(workoutEditReducer),
+        {
+            hasChanges: false,
+            id: 123,
+            name: "new workout",
+            rounds: [{ repeat: 1, break: 45, exercises: [] }],
+        }
+    );
     const navigate = useNavigate();
     const { workoutId } = useParams<RouteParams>() as RouteParams;
 
     const onWorkoutDelete = () => console.log("onDeleteWorkout");
-    const onBack = () => {
-        navigate("/workouts");
+    const onBack = async () => {
+        if (workout.hasChanges) await saveWorkout();
+        // navigate("/workouts");
     };
     const fetchWorkout = async () => {
         setLoading(true);
         const result = await getWorkout(parseInt(workoutId));
         if (result.error) {
-        } else {
-            setWorkout(result.workout);
+        } else if (result.workout) {
+            workoutDispatch({
+                type: ACTIONS.INIT,
+                payload: result.workout,
+            });
         }
         setLoading(false);
+    };
+    const saveWorkout = async () => {
+        const { error } = await updateWorkout(parseInt(workoutId), workout);
+        console.log(error);
     };
 
     React.useEffect(() => {
@@ -39,14 +59,12 @@ function WorkoutUpdate() {
 
     return (
         <div>
-            <TopBar
-                onBack={onBack}
-                onDelete={onWorkoutDelete}
-                title="Update workout"
-            />
-            {isLoading && <p>spinner</p>}
-            {!isLoading && !!workout && (
-                <WorkoutEdit originalWorkout={workout} />
+            <TopBar onBack={onBack} title="Update workout" />
+            {!isLoading && (
+                <WorkoutEdit
+                    workout={workout}
+                    workoutDispatch={workoutDispatch}
+                />
             )}
         </div>
     );

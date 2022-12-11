@@ -13,6 +13,10 @@
         "prettier": "prettier --write ./src",
         "prepare": "husky install"
     },
+    "lint-staged": {
+        "src/**/*": ["prettier --write"],
+        "src/**/*.ts?(x)": ["tsc-files --noEmit"]
+    },
     "author": "Giovanni Rodighiero",
     "license": "MIT",
     "devDependencies": {
@@ -34,6 +38,7 @@
         "esbuild": "0.15.10",
         "husky": "^8.0.0",
         "jsdom": "^20.0.2",
+        "lint-staged": "^13.1.0",
         "postcss": "^8.4.16",
         "postcss-import": "^15.0.0",
         "prettier": "^2.7.1",

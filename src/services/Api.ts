@@ -1,6 +1,11 @@
 import Workout from "../types/workout.interface";
 import supabaseClient from "./supabaseClient";
 
+enum ERROR_CODES {
+    "GENERIC" = 1,
+    "NOT_FOUND" = 2,
+}
+
 interface getHomepageWorkoutsInterface {
     workouts: Workout[];
     error?: {
@@ -68,26 +73,30 @@ export async function getWorkout(id: number): Promise<getWorkoutInterface> {
 }
 
 interface updateWorkoutInterface {
-    error?: {
-        generic?: boolean;
-    };
+    error?: ERROR_CODES;
 }
-export async function updateWorkout(id: number, workout: Workout): Promise<updateWorkoutInterface> {
+export async function updateWorkout(
+    id: number,
+    workout: Workout
+): Promise<updateWorkoutInterface> {
     try {
-        const { error, status } = await supabaseClient
+        const { error, status, count } = await supabaseClient
             .from("workouts")
-            .update({
-                name: workout.name,
-                data: { rounds: workout.rounds }
-            })
+            .update(
+                {
+                    name: workout.name,
+                    data: { rounds: workout.rounds },
+                },
+                { count: "exact" }
+            )
             .eq("id", id);
 
-        console.log(error, status)
-        if (error && status !== 406)
-            return { error: { generic: true } };
+        if (error && status !== 406) return { error: ERROR_CODES.GENERIC };
+
+        if (!count) return { error: ERROR_CODES.NOT_FOUND };
 
         return {};
     } catch (error) {
-        return { error: { generic: true } };
+        return { error: ERROR_CODES.GENERIC };
     }
 }

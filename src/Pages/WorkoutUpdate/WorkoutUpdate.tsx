@@ -29,16 +29,17 @@ function WorkoutUpdate() {
         }
     );
     const navigate = useNavigate();
-    const { workoutId } = useParams<RouteParams>() as RouteParams;
+    const { workoutId: idAsString } = useParams<RouteParams>() as RouteParams;
+    const workoutId = React.useMemo(() => parseInt(idAsString), [idAsString]);
 
     const onWorkoutDelete = () => console.log("onDeleteWorkout");
     const onBack = async () => {
         if (workout.hasChanges) await saveWorkout();
-        // navigate("/workouts");
+        navigate("/workouts");
     };
     const fetchWorkout = async () => {
         setLoading(true);
-        const result = await getWorkout(parseInt(workoutId));
+        const result = await getWorkout(workoutId);
         if (result.error) {
         } else if (result.workout) {
             workoutDispatch({
@@ -49,8 +50,8 @@ function WorkoutUpdate() {
         setLoading(false);
     };
     const saveWorkout = async () => {
-        const { error } = await updateWorkout(parseInt(workoutId), workout);
-        console.log(error);
+        await updateWorkout(workoutId, workout);
+        return true;
     };
 
     React.useEffect(() => {

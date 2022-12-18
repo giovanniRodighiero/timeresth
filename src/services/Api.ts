@@ -120,3 +120,25 @@ export async function createWorkout(
         return { error: ERROR_CODES.GENERIC };
     }
 }
+
+interface deleteWorkoutInterface {
+    error?: ERROR_CODES;
+}
+export async function deleteWorkout(
+    id: number
+): Promise<deleteWorkoutInterface> {
+    try {
+        const { error, status, count } = await supabaseClient
+            .from("workouts")
+            .delete({ count: "exact" })
+            .eq("id", id);
+
+        if (error && status !== 406) return { error: ERROR_CODES.GENERIC };
+
+        if (!count) return { error: ERROR_CODES.NOT_FOUND };
+
+        return {};
+    } catch (error) {
+        return { error: ERROR_CODES.GENERIC };
+    }
+}

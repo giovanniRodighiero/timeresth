@@ -34,8 +34,8 @@ function HomePage() {
             {!isLoading && (
                 <>
                     {workouts.map(workout => (
-                        <div className="mb-3">
-                            <WorkoutCard key={workout.id} workout={workout} />
+                        <div className="mb-3" key={workout.id}>
+                            <WorkoutCard workout={workout} />
                         </div>
                     ))}
                     <NewWorkoutLink />

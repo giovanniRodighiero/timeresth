@@ -8,7 +8,7 @@ import WorkoutEdit from "../../Components/WorkoutEdit";
 import workoutEditReducer, {
     ACTIONS,
 } from "../../Components/WorkoutEdit/reducer";
-import { getWorkout, updateWorkout } from "../../services/Api";
+import { deleteWorkout, getWorkout, updateWorkout } from "../../services/Api";
 
 type RouteParams = {
     workoutId: string;
@@ -32,7 +32,10 @@ function WorkoutUpdate() {
     const { workoutId: idAsString } = useParams<RouteParams>() as RouteParams;
     const workoutId = React.useMemo(() => parseInt(idAsString), [idAsString]);
 
-    const onWorkoutDelete = () => console.log("onDeleteWorkout");
+    const onWorkoutDelete = async () => {
+        await deleteWorkout(workoutId);
+        navigate("/workouts");
+    };
     const onBack = async () => {
         if (workout.hasChanges) await saveWorkout();
         navigate("/workouts");
@@ -60,7 +63,11 @@ function WorkoutUpdate() {
 
     return (
         <div>
-            <TopBar onBack={onBack} title="Update workout" />
+            <TopBar
+                onBack={onBack}
+                title="Update workout"
+                onDelete={onWorkoutDelete}
+            />
             {!isLoading && (
                 <WorkoutEdit
                     workout={workout}

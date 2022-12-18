@@ -2,6 +2,7 @@ import React from "react";
 
 import Title from "../../Components/Title";
 import WorkoutCard from "../../Components/WorkoutCard/WorkoutCard";
+import NewWorkoutLink from "../../Components/NewWorkoutLink";
 import Workout from "../../types/workout.interface";
 
 import { getHomepageWorkouts } from "../../services/Api";
@@ -30,12 +31,17 @@ function HomePage() {
                 <Title>Your workouts</Title>
             </section>
             {isLoading && <p>spinner</p>}
-            {!isLoading &&
-                workouts.map(workout => (
-                    <div className="mb-3">
-                        <WorkoutCard key={workout.id} workout={workout} />
-                    </div>
-                ))}
+            {!isLoading && (
+                <>
+                    {workouts.map(workout => (
+                        <div className="mb-3">
+                            <WorkoutCard key={workout.id} workout={workout} />
+                        </div>
+                    ))}
+                    <NewWorkoutLink />
+                </>
+            )}
+            <></>
         </main>
     );
 }

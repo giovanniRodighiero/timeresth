@@ -25,17 +25,19 @@ export interface Database {
                     id?: number;
                     inserted_at?: string;
                     updated_at?: string;
-                    data?: Json | null;
                     name?: string;
+                    data?: {
+                        rounds: Round[];
+                    };
                 };
                 Update: {
                     id?: number;
                     inserted_at?: string;
                     updated_at?: string;
+                    name?: string;
                     data?: {
                         rounds: Round[];
                     };
-                    name?: string;
                 };
             };
         };

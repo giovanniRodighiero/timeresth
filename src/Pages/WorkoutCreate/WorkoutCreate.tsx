@@ -5,6 +5,7 @@ import produce from "immer";
 import TopBar from "../../Components/TopBar";
 import WorkoutEdit from "../../Components/WorkoutEdit";
 import workoutEditReducer from "../../Components/WorkoutEdit/reducer";
+import { createWorkout } from "../../services/Api";
 
 /**
  * Create workout page
@@ -21,18 +22,18 @@ function WorkoutCreate() {
     );
     const navigate = useNavigate();
 
-    const onWorkoutDelete = () => console.log("onDeleteWorkout");
-    const onBack = () => {
+    const saveWorkout = async () => {
+        await createWorkout(workout);
+        return true;
+    };
+    const onBack = async () => {
+        if (workout.hasChanges) await saveWorkout();
         navigate("/workouts");
     };
 
     return (
         <div>
-            <TopBar
-                onBack={onBack}
-                onDelete={onWorkoutDelete}
-                title="New workout"
-            />
+            <TopBar onBack={onBack} title="New workout" />
             <WorkoutEdit workout={workout} workoutDispatch={workoutDispatch} />
         </div>
     );

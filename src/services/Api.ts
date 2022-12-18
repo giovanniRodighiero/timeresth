@@ -100,3 +100,23 @@ export async function updateWorkout(
         return { error: ERROR_CODES.GENERIC };
     }
 }
+
+interface createWorkoutInterface {
+    error?: ERROR_CODES.GENERIC;
+}
+export async function createWorkout(
+    workout: Workout
+): Promise<createWorkoutInterface> {
+    try {
+        const { error, status } = await supabaseClient.from("workouts").insert({
+            name: workout.name,
+            data: { rounds: workout.rounds },
+        });
+
+        if (error && status !== 406) return { error: ERROR_CODES.GENERIC };
+
+        return {};
+    } catch (error) {
+        return { error: ERROR_CODES.GENERIC };
+    }
+}

@@ -11,7 +11,7 @@ import Title from "../Title";
 function NewWorkoutLink() {
     return (
         <Link to="/workouts/new">
-            <div className="flex h-32 max-w-md flex-col items-center justify-around rounded-md bg-gray-300 drop-shadow-md">
+            <div className="mx-auto flex h-32 max-w-md flex-col items-center justify-around rounded-md bg-gray-300 drop-shadow-md">
                 <Title tag="h2" color="white">
                     Create new
                 </Title>

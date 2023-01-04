@@ -1,14 +1,23 @@
+import Exercise from "../../types/exercise.interface";
+import Round from "../../types/round.interface";
 import Workout from "../../types/workout.interface";
 
 export enum ACTIONS {
+    INIT = "INIT",
     UPDATE_NAME = "UPDATE_NAME",
     ADD_ROUND = "ADD_ROUND",
     DELETE_ROUND = "DELETE_ROUND",
     UPDATE_ROUND = "UPDATE_ROUND",
-    UPDATE_EXERCISE = "UPDATE_EXERCISE",
+    UPDATE_EXERCISE_NUM = "UPDATE_EXERCISE_NUM",
+    UPDATE_EXERCISE_STR = "UPDATE_EXERCISE_STR",
     DELETE_EXERCISE = "DELETE_EXERCISE",
     ADD_EXERCISE = "ADD_EXERCISE",
 }
+
+type InitWorkoutAction = {
+    type: ACTIONS.INIT,
+    payload: Workout
+};
 
 type UpdateNameAction = {
     type: ACTIONS.UPDATE_NAME;
@@ -33,19 +42,29 @@ type UpdateRoundAction = {
     type: ACTIONS.UPDATE_ROUND;
     payload: {
         round: number;
-        field: string;
+        field: Exclude<keyof Round, "exercises">;
         value: number;
     };
 };
 
-type UpdateExerciseAction = {
-    type: ACTIONS.UPDATE_EXERCISE;
-    payload: {
+type UpdateExerciseNumAction = {
+    type: ACTIONS.UPDATE_EXERCISE_NUM;
+    payload:{
         round: number;
         exercise: number;
-        field: string;
+        field: Exclude<keyof Exercise, "name">;
         value: number;
-    };
+    }
+};
+
+type UpdateExerciseStrAction = {
+    type: ACTIONS.UPDATE_EXERCISE_STR;
+    payload:{
+        round: number;
+        exercise: number;
+        field: "name";
+        value: string;
+    }
 };
 
 type DeleteExerciseAction = {
@@ -63,23 +82,33 @@ type AddExerciseAction = {
     };
 };
 
-type Action =
+export type Action =
+    | InitWorkoutAction
     | UpdateNameAction
     | AddRoundAction
     | DeleteRoundAction
     | UpdateRoundAction
-    | UpdateExerciseAction
+    | UpdateExerciseNumAction
+    | UpdateExerciseStrAction
     | DeleteExerciseAction
     | AddExerciseAction;
 
-function workoutEditReducer(draft: Workout, action: Action): void {
+function workoutEditReducer(draft: { hasChanges: boolean } & Workout, action: Action): void {
     const { type, payload } = action;
     switch (type) {
+        case ACTIONS.INIT:
+            draft.hasChanges = false;
+            draft.name = payload.name;
+            draft.rounds = payload.rounds;
+            break;
+
         case ACTIONS.UPDATE_NAME:
+            draft.hasChanges = true;
             draft.name = payload.name;
             break;
 
         case ACTIONS.ADD_ROUND:
+            draft.hasChanges = true;
             draft.rounds.push({
                 repeat: 1,
                 break: 45,
@@ -88,24 +117,36 @@ function workoutEditReducer(draft: Workout, action: Action): void {
             break;
 
         case ACTIONS.DELETE_ROUND:
+            draft.hasChanges = true;
             draft.rounds.splice(payload.round, 1);
             break;
 
         case ACTIONS.UPDATE_ROUND:
+            draft.hasChanges = true;
             draft.rounds[payload.round][payload.field] = payload.value;
             break;
 
-        case ACTIONS.UPDATE_EXERCISE:
+        case ACTIONS.UPDATE_EXERCISE_STR:
+            draft.hasChanges = true;
             draft.rounds[payload.round].exercises[payload.exercise][
                 payload.field
+                ] = payload.value;
+                break;
+
+        case ACTIONS.UPDATE_EXERCISE_NUM:
+            draft.hasChanges = true;
+            draft.rounds[payload.round].exercises[payload.exercise][
+            payload.field
             ] = payload.value;
             break;
 
         case ACTIONS.DELETE_EXERCISE:
+            draft.hasChanges = true;
             draft.rounds[payload.round].exercises.splice(payload.exercise, 1);
             break;
 
         case ACTIONS.ADD_EXERCISE:
+            draft.hasChanges = true;
             draft.rounds[payload.round].exercises.push({
                 name: "",
                 work: 20,

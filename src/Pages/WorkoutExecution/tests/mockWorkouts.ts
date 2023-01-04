@@ -3,7 +3,7 @@ import Workout from "../../../types/workout.interface";
 
 function buildWorkout(rounds: Round[]): Workout {
     return {
-        id: "1",
+        id: 123,
         name: "workout mock",
         rounds,
     };

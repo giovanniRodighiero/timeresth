@@ -13,6 +13,10 @@
         "prettier": "prettier --write ./src",
         "prepare": "husky install"
     },
+    "lint-staged": {
+        "src/**/*": ["prettier --write"],
+        "src/**/*.ts?(x)": ["tsc-files --noEmit"]
+    },
     "author": "Giovanni Rodighiero",
     "license": "MIT",
     "devDependencies": {
@@ -34,6 +38,7 @@
         "esbuild": "0.15.10",
         "husky": "^8.0.0",
         "jsdom": "^20.0.2",
+        "lint-staged": "^13.1.0",
         "postcss": "^8.4.16",
         "postcss-import": "^15.0.0",
         "prettier": "^2.7.1",
@@ -42,6 +47,7 @@
         "vitest": "^0.24.4"
     },
     "dependencies": {
+        "@supabase/supabase-js": "^2.1.1",
         "classnames": "^2.3.1",
         "immer": "^9.0.15",
         "prettier-plugin-tailwindcss": "^0.1.13",

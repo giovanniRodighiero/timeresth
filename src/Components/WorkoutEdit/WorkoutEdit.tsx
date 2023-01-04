@@ -1,7 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
-import produce from "immer";
 
 import InputField from "../InputField";
 import RoundTabs from "../RoundTabs";
@@ -9,29 +8,26 @@ import ExerciseEditCard from "../ExerciseEditCard";
 import NewExerciseCard from "../NewExerciseCard";
 import ExerciseEditCardParameter from "../ExerciseEditParameter";
 import BaseButton from "../BaseButton/BaseButton";
-import workoutEditReducer, { ACTIONS } from "./reducer";
+import { ACTIONS, Action } from "./reducer";
 import calcWorkoutDuration from "../../utils/calcWorkoutDuration";
+
 import Workout from "../../types/workout.interface";
+import Round from "../../types/round.interface";
+import Exercise from "../../types/exercise.interface";
 
 const SWIPER_MODULES = [Pagination];
 const SWIPER_PAGINATION = { clickable: true };
 
 interface WorkoutUpdateProps {
-    originalWorkout: Workout;
+    workout: Workout;
+    workoutDispatch: React.Dispatch<Action>;
 }
 
 /**
  * Update workout page
  */
-function WorkoutUpdate({ originalWorkout }: WorkoutUpdateProps) {
+function WorkoutUpdate({ workout, workoutDispatch }: WorkoutUpdateProps) {
     const [activeRoundIndex, setActiveRoundIndex] = React.useState(0);
-    const [workout, workoutDispatch] = React.useReducer(
-        produce(workoutEditReducer),
-        originalWorkout || {
-            name: "new workout",
-            rounds: [{ repeat: 1, break: 45, exercises: [] }],
-        }
-    );
 
     const totalTime = React.useMemo(
         () => calcWorkoutDuration(workout).toISOString().substring(11, 19),
@@ -43,12 +39,15 @@ function WorkoutUpdate({ originalWorkout }: WorkoutUpdateProps) {
         [workout.rounds.length]
     );
 
-    const onWorkoutNameChange = event =>
+    const onWorkoutNameChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ): void => {
         workoutDispatch({
             type: ACTIONS.UPDATE_NAME,
-            payload: { name: event.target.value },
+            payload: { name: event.currentTarget.value },
         });
-    const onRoundDelete = index => {
+    };
+    const onRoundDelete = (index: number) => {
         if (index === workout.rounds.length - 1) setActiveRoundIndex(index - 1);
         workoutDispatch({
             type: ACTIONS.DELETE_ROUND,
@@ -59,19 +58,38 @@ function WorkoutUpdate({ originalWorkout }: WorkoutUpdateProps) {
         setActiveRoundIndex(workout.rounds.length);
         workoutDispatch({ type: ACTIONS.ADD_ROUND });
     };
-    const onRoundUpdate = field => value => {
-        workoutDispatch({
-            type: ACTIONS.UPDATE_ROUND,
-            payload: { round: activeRoundIndex, field, value },
-        });
-    };
-    const onExerciseUpdate = exercise => (field, value) => {
-        workoutDispatch({
-            type: ACTIONS.UPDATE_EXERCISE,
-            payload: { round: activeRoundIndex, exercise, field, value },
-        });
-    };
-    const onExerciseDelete = exercise => () => {
+    const onRoundUpdate =
+        (field: Exclude<keyof Round, "exercises">) => (value: number) => {
+            workoutDispatch({
+                type: ACTIONS.UPDATE_ROUND,
+                payload: { round: activeRoundIndex, field, value },
+            });
+        };
+    const onExerciseUpdate =
+        (exercise: number) =>
+        (field: keyof Exercise, value: number | string) => {
+            if (field === "name" && typeof value === "string")
+                workoutDispatch({
+                    type: ACTIONS.UPDATE_EXERCISE_STR,
+                    payload: {
+                        round: activeRoundIndex,
+                        exercise,
+                        field,
+                        value,
+                    },
+                });
+            else if (field !== "name" && typeof value === "number")
+                workoutDispatch({
+                    type: ACTIONS.UPDATE_EXERCISE_NUM,
+                    payload: {
+                        round: activeRoundIndex,
+                        exercise,
+                        field,
+                        value,
+                    },
+                });
+        };
+    const onExerciseDelete = (exercise: number) => () => {
         workoutDispatch({
             type: ACTIONS.DELETE_EXERCISE,
             payload: { round: activeRoundIndex, exercise },
@@ -150,7 +168,6 @@ function WorkoutUpdate({ originalWorkout }: WorkoutUpdateProps) {
                     </SwiperSlide>
                 </Swiper>
             </main>
-
             <footer className="fixed bottom-0 left-0 flex w-full justify-between border-t border-gray-300 py-3 px-2">
                 <div className="basis-2/3">
                     <span className="mr-2 text-lg capitalize">total time:</span>

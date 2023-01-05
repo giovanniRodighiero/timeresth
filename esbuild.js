@@ -25,7 +25,7 @@ switch (process.env.NODE_ENV) {
         serve("dist", 8080, BASE_CONFIG)
             .then(server => {
                 console.log(
-                    `serving static contents at ${server.host}:${server.port}`
+                    `serving STATIC contents from ${server.host}:${server.port}\nserving WEB APP from ${server.host}:8080`
                 );
             })
             .catch(() => process.exit(1));

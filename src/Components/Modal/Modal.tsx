@@ -10,7 +10,11 @@ interface ModalProps {
     isVisible?: boolean;
     onClose: () => void;
 }
-function ModalUI({ children, title = "", onClose }: ModalProps) {
+function ModalUI({
+    children,
+    title = "",
+    onClose,
+}: Omit<ModalProps, "isVisible">) {
     return (
         <div aria-modal className="fixed top-0 left-0 z-10 h-full w-full">
             <div

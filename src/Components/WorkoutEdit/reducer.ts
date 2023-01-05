@@ -15,8 +15,8 @@ export enum ACTIONS {
 }
 
 type InitWorkoutAction = {
-    type: ACTIONS.INIT,
-    payload: Workout
+    type: ACTIONS.INIT;
+    payload: Workout;
 };
 
 type UpdateNameAction = {
@@ -49,22 +49,22 @@ type UpdateRoundAction = {
 
 type UpdateExerciseNumAction = {
     type: ACTIONS.UPDATE_EXERCISE_NUM;
-    payload:{
+    payload: {
         round: number;
         exercise: number;
         field: Exclude<keyof Exercise, "name">;
         value: number;
-    }
+    };
 };
 
 type UpdateExerciseStrAction = {
     type: ACTIONS.UPDATE_EXERCISE_STR;
-    payload:{
+    payload: {
         round: number;
         exercise: number;
         field: "name";
         value: string;
-    }
+    };
 };
 
 type DeleteExerciseAction = {
@@ -93,7 +93,10 @@ export type Action =
     | DeleteExerciseAction
     | AddExerciseAction;
 
-function workoutEditReducer(draft: { hasChanges: boolean } & Workout, action: Action): void {
+function workoutEditReducer(
+    draft: { hasChanges: boolean } & Workout,
+    action: Action
+): void {
     const { type, payload } = action;
     switch (type) {
         case ACTIONS.INIT:
@@ -130,13 +133,13 @@ function workoutEditReducer(draft: { hasChanges: boolean } & Workout, action: Ac
             draft.hasChanges = true;
             draft.rounds[payload.round].exercises[payload.exercise][
                 payload.field
-                ] = payload.value;
-                break;
+            ] = payload.value;
+            break;
 
         case ACTIONS.UPDATE_EXERCISE_NUM:
             draft.hasChanges = true;
             draft.rounds[payload.round].exercises[payload.exercise][
-            payload.field
+                payload.field
             ] = payload.value;
             break;
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Edit3 } from "react-feather";
 
 import calcWorkoutDuration from "../../utils/calcWorkoutDuration";
@@ -25,18 +26,18 @@ function WorkoutCard({ workout }: WorkoutCardProps) {
     return (
         <article className="mx-auto flex h-32 max-w-md cursor-pointer flex-col justify-around rounded-md bg-main drop-shadow-md">
             <div className="relative border-b-2 border-white py-1">
-                <a href={`/workouts/${workout.id}`}>
+                <Link to={`/workouts/${workout.id}`}>
                     <h2 className="text-center font-serif text-2xl text-dark">
                         {workout.name}
                     </h2>
-                </a>
-                <a
+                </Link>
+                <Link
                     className="absolute top-1/2 right-2 -translate-y-1/2 bg-main text-dark"
-                    href={`/workouts/${workout.id}/edit`}
+                    to={`/workouts/${workout.id}/edit`}
                     aria-label="Edit workout"
                 >
                     <Edit3 size={26} />
-                </a>
+                </Link>
             </div>
             <div className="flex justify-evenly py-1">
                 <WorkoutCardInfo label="minutes" value={stats.time} />

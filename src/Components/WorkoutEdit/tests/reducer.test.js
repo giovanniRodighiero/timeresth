@@ -10,14 +10,17 @@ describe("workoutReducer", () => {
 
     it("Should replace the draft for the action: INIT", () => {
         const draft = {};
-        workoutReducer(draft, { type: ACTIONS.INIT, payload: {
-            name: "name of workout",
-            rounds: [{ repeat: 1, break: 1, exercises: [] }]
-        } });
+        workoutReducer(draft, {
+            type: ACTIONS.INIT,
+            payload: {
+                name: "name of workout",
+                rounds: [{ repeat: 1, break: 1, exercises: [] }],
+            },
+        });
         expect(draft).toEqual({
             hasChanges: false,
             name: "name of workout",
-            rounds: [{ repeat: 1, break: 1, exercises: [] }]
+            rounds: [{ repeat: 1, break: 1, exercises: [] }],
         });
     });
 
@@ -128,7 +131,12 @@ describe("workoutReducer", () => {
         };
         workoutReducer(draft, {
             type: ACTIONS.UPDATE_EXERCISE_STR,
-            payload: { round: 0, exercise: 1, field: "name", value: "new name" },
+            payload: {
+                round: 0,
+                exercise: 1,
+                field: "name",
+                value: "new name",
+            },
         });
         expect(draft.rounds).toHaveLength(2);
         expect(draft.rounds[0].repeat).toBe(1);

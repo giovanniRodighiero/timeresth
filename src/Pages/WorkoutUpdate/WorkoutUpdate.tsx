@@ -4,6 +4,7 @@ import produce from "immer";
 
 import TopBar from "../../Components/TopBar";
 import WorkoutEdit from "../../Components/WorkoutEdit";
+import ModalWorkoutChanges from "../../Components/ModalWorkoutChanges";
 
 import workoutEditReducer, {
     ACTIONS,
@@ -18,6 +19,7 @@ type RouteParams = {
  * Update workout page
  */
 function WorkoutUpdate() {
+    const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false);
     const [isLoading, setLoading] = React.useState<boolean>(true);
     const [workout, workoutDispatch] = React.useReducer(
         produce(workoutEditReducer),
@@ -32,13 +34,24 @@ function WorkoutUpdate() {
     const { workoutId: idAsString } = useParams<RouteParams>() as RouteParams;
     const workoutId = React.useMemo(() => parseInt(idAsString), [idAsString]);
 
+    /** MODAL */
+    const onModalClose = () => setIsModalVisible(false);
+    const onSaveChanges = async () => {
+        await updateWorkout(workoutId, workout);
+        navigate("/");
+    };
+    const onDiscardChanges = () => navigate("/");
+
+    /** PAGE */
+    const onBack = () => {
+        if (workout.hasChanges) setIsModalVisible(true);
+        else navigate("/");
+    };
+
+    /** WORKOUT CRUD */
     const onWorkoutDelete = async () => {
         await deleteWorkout(workoutId);
-        navigate("/workouts");
-    };
-    const onBack = async () => {
-        if (workout.hasChanges) await saveWorkout();
-        navigate("/workouts");
+        navigate("/");
     };
     const fetchWorkout = async () => {
         setLoading(true);
@@ -52,10 +65,6 @@ function WorkoutUpdate() {
         }
         setLoading(false);
     };
-    const saveWorkout = async () => {
-        await updateWorkout(workoutId, workout);
-        return true;
-    };
 
     React.useEffect(() => {
         fetchWorkout();
@@ -63,6 +72,12 @@ function WorkoutUpdate() {
 
     return (
         <div>
+            <ModalWorkoutChanges
+                isVisible={isModalVisible}
+                onClose={onModalClose}
+                onDiscardChanges={onDiscardChanges}
+                onSaveChanges={onSaveChanges}
+            />
             <TopBar
                 onBack={onBack}
                 title="Update workout"

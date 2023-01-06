@@ -4,6 +4,8 @@ import produce from "immer";
 
 import TopBar from "../../Components/TopBar";
 import WorkoutEdit from "../../Components/WorkoutEdit";
+import ModalWorkoutChanges from "../../Components/ModalWorkoutChanges";
+
 import workoutEditReducer from "../../Components/WorkoutEdit/reducer";
 import { createWorkout } from "../../services/Api";
 
@@ -11,6 +13,7 @@ import { createWorkout } from "../../services/Api";
  * Create workout page
  */
 function WorkoutCreate() {
+    const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false);
     const [workout, workoutDispatch] = React.useReducer(
         produce(workoutEditReducer),
         {
@@ -22,17 +25,28 @@ function WorkoutCreate() {
     );
     const navigate = useNavigate();
 
-    const saveWorkout = async () => {
+    /** MODAL */
+    const onModalClose = () => setIsModalVisible(false);
+    const onSaveChanges = async () => {
         await createWorkout(workout);
-        return true;
+        navigate("/");
     };
-    const onBack = async () => {
-        if (workout.hasChanges) await saveWorkout();
-        navigate("/workouts");
+    const onDiscardChanges = () => navigate("/");
+
+    /** PAGE */
+    const onBack = () => {
+        if (workout.hasChanges) setIsModalVisible(true);
+        else navigate("/");
     };
 
     return (
         <div>
+            <ModalWorkoutChanges
+                isVisible={isModalVisible}
+                onClose={onModalClose}
+                onDiscardChanges={onDiscardChanges}
+                onSaveChanges={onSaveChanges}
+            />
             <TopBar onBack={onBack} title="New workout" />
             <WorkoutEdit workout={workout} workoutDispatch={workoutDispatch} />
         </div>

@@ -1,5 +1,5 @@
-import workoutReducer from "../reducer";
-import { ACTIONS } from "../reducer";
+import workoutReducer from "./reducer";
+import { ACTIONS } from "./reducer";
 
 describe("workoutReducer", () => {
     it("Should do nothing in case of a non existing action type", () => {

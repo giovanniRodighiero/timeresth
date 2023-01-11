@@ -8,5 +8,6 @@ export default defineConfig({
         coverage: {
             provider: "c8",
         },
+        include: ['**/*.test.{js,ts,jsx,tsx}']
     },
 });

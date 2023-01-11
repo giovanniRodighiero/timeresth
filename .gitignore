@@ -3,3 +3,7 @@ dist/*
 !dist/index.html
 coverage
 .env
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/e2e/storageState.json

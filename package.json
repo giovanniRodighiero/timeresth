@@ -1,67 +1,71 @@
 {
-    "name": "timeresth",
-    "version": "1.0.0",
-    "description": "A simple timer to workout with an HIIT program",
-    "main": "index.js",
-    "scripts": {
-        "dev": "NODE_ENV=development node esbuild.js",
-        "types-checking": "tsc",
-        "test-watch": "NODE_ENV=test vitest",
-        "test": "NODE_ENV=test vitest run --coverage",
-        "storybook": "start-storybook -p 6006",
-        "build-storybook": "build-storybook",
-        "prettier": "prettier --write ./src",
-        "prepare": "husky install"
-    },
-    "lint-staged": {
-        "src/**/*": [
-            "prettier --write"
-        ],
-        "src/**/*.ts?(x)": [
-            "tsc-files --noEmit"
-        ]
-    },
-    "author": "Giovanni Rodighiero",
-    "license": "MIT",
-    "devDependencies": {
-        "@babel/core": "^7.18.10",
-        "@storybook/addon-actions": "^6.5.10",
-        "@storybook/addon-essentials": "^6.5.10",
-        "@storybook/addon-interactions": "^6.5.10",
-        "@storybook/addon-links": "^6.5.10",
-        "@storybook/addon-postcss": "^2.0.0",
-        "@storybook/builder-webpack4": "^6.5.10",
-        "@storybook/manager-webpack4": "^6.5.10",
-        "@storybook/react": "^6.5.10",
-        "@storybook/testing-library": "^0.0.13",
-        "@testing-library/jest-dom": "^5.16.5",
-        "@testing-library/react": "^13.3.0",
-        "@testing-library/user-event": "^14.4.3",
-        "@vitest/coverage-c8": "^0.24.4",
-        "autoprefixer": "^10.4.8",
-        "esbuild": "0.15.10",
-        "husky": "^8.0.0",
-        "jsdom": "^20.0.2",
-        "lint-staged": "^13.1.0",
-        "postcss": "^8.4.16",
-        "postcss-import": "^15.0.0",
-        "prettier": "^2.7.1",
-        "pretty-quick": "^3.1.3",
-        "tsc-files": "^1.1.3",
-        "typescript": "^4.8.4",
-        "vitest": "^0.24.4"
-    },
-    "dependencies": {
-        "@supabase/auth-ui-react": "^0.2.6",
-        "@supabase/supabase-js": "^2.1.1",
-        "classnames": "^2.3.1",
-        "immer": "^9.0.15",
-        "prettier-plugin-tailwindcss": "^0.1.13",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-feather": "^2.0.10",
-        "react-router-dom": "^6.3.0",
-        "swiper": "^8.4.2",
-        "tailwindcss": "^3.1.8"
-    }
+  "name": "timeresth",
+  "version": "1.0.0",
+  "description": "A simple timer to workout with an HIIT program",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development node esbuild.js",
+    "e2e": "NODE_ENV=test-e2e node esbuild.js",
+    "prod": "NODE_ENV=production node esbuild.js",
+    "types-checking": "tsc",
+    "test-watch": "NODE_ENV=test vitest",
+    "test": "NODE_ENV=test vitest run --coverage",
+    "test-e2e": "npx playwright test",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "prettier": "prettier --write ./src",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "src/**/*": [
+      "prettier --write"
+    ],
+    "src/**/*.ts?(x)": [
+      "tsc-files --noEmit"
+    ]
+  },
+  "author": "Giovanni Rodighiero",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@playwright/test": "^1.29.2",
+    "@storybook/addon-actions": "^6.5.10",
+    "@storybook/addon-essentials": "^6.5.10",
+    "@storybook/addon-interactions": "^6.5.10",
+    "@storybook/addon-links": "^6.5.10",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/builder-webpack4": "^6.5.10",
+    "@storybook/manager-webpack4": "^6.5.10",
+    "@storybook/react": "^6.5.10",
+    "@storybook/testing-library": "^0.0.13",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@vitest/coverage-c8": "^0.24.4",
+    "autoprefixer": "^10.4.8",
+    "esbuild": "0.15.10",
+    "husky": "^8.0.0",
+    "jsdom": "^20.0.2",
+    "lint-staged": "^13.1.0",
+    "postcss": "^8.4.16",
+    "postcss-import": "^15.0.0",
+    "prettier": "^2.7.1",
+    "pretty-quick": "^3.1.3",
+    "tsc-files": "^1.1.3",
+    "typescript": "^4.8.4",
+    "vitest": "^0.24.4"
+  },
+  "dependencies": {
+    "@supabase/auth-ui-react": "^0.2.6",
+    "@supabase/supabase-js": "^2.1.1",
+    "classnames": "^2.3.1",
+    "immer": "^9.0.15",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-feather": "^2.0.10",
+    "react-router-dom": "^6.3.0",
+    "swiper": "^8.4.2",
+    "tailwindcss": "^3.1.8"
+  }
 }

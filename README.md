@@ -8,7 +8,23 @@ Timeresth is a workout management app that allows the user to create, edit and e
 
 Create the workout that best suits your needs: different working out and resting times per exercise per round are possibile thanks to the flexible workout model and intuitive UI.
 
+## Tech stack
+* Typescript
+* React.js
+* Immer
+* Tailwindcss
+
+* EsBuild
+* Vitest + React Testing Library
+* Playwright (WIP)
+
+* Storybook
+
 ## dev
+```
+npm install
+npm run dev
+```
 
 In order to update the Database interface:
 

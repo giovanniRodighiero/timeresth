@@ -15,6 +15,8 @@ interface WorkoutCardProps {
  * Has a link to the execution page and to the edit page.
  */
 function WorkoutCard({ workout }: WorkoutCardProps) {
+    const linkRef = React.useRef<HTMLAnchorElement>(null);
+
     const stats = React.useMemo(() => {
         const exerciseCount = calcWorkoutExercises(workout);
         const time = calcWorkoutDuration(workout)
@@ -23,10 +25,16 @@ function WorkoutCard({ workout }: WorkoutCardProps) {
         return { exerciseCount, time };
     }, [workout.rounds]);
 
+    const onArticleClick = () => linkRef.current?.click();
+
     return (
-        <article className="mx-auto flex h-32 max-w-md cursor-pointer flex-col justify-around rounded-md bg-main drop-shadow-md">
+        <article
+            className="mx-auto flex h-32 max-w-md cursor-pointer flex-col justify-around rounded-md bg-main drop-shadow-md"
+            role="button"
+            onClick={onArticleClick}
+        >
             <div className="relative border-b-2 border-white py-1">
-                <Link to={`/workouts/${workout.id}`}>
+                <Link to={`/workouts/${workout.id}`} ref={linkRef}>
                     <h2 className="text-center font-serif text-2xl text-dark">
                         {workout.name}
                     </h2>

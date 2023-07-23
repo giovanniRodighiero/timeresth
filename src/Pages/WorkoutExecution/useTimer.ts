@@ -12,6 +12,9 @@ enum PHASES {
 const GET_READY_DURATION = 5;
 
 interface useTimerInterface {
+    /** Is the timer ready to be used (workout is provided or not) */
+    isReady: boolean;
+
     /** Is the timer running or not */
     isRunning: boolean;
 
@@ -37,14 +40,30 @@ interface useTimerInterface {
     roundIndex: number;
 
     /** Start or resume the timer */
+    loadWorkout: (newWorkout: Workout) => void;
+
+    /** Start or resume the timer */
     play: () => void;
 
     /** Pause the timer */
     pause: () => void;
 }
 
-function useTimer(workout: Workout): useTimerInterface {
+function useTimer(
+    initialWorkout: Workout = {
+        id: 0,
+        name: "default",
+        rounds: [
+            {
+                repeat: 1,
+                break: 20,
+                exercises: [{ name: "default", work: 10, rest: 15, repeat: 1 }],
+            },
+        ],
+    }
+): useTimerInterface {
     const intervalRef = React.useRef<NodeJS.Timer>();
+    const [workout, setWorkout] = React.useState<Workout>(initialWorkout);
     const [isRunning, setIsRunning] = React.useState<boolean>(false);
     const [value, setValue] = React.useState<number>(GET_READY_DURATION);
     const [phase, setPhase] = React.useState<number>(PHASES.GET_READY);
@@ -60,6 +79,16 @@ function useTimer(workout: Workout): useTimerInterface {
     const [exerciseName, setExerciseName] = React.useState<string>(
         exercise.name
     );
+
+    const resetTimer = () => {
+        setIsRunning(false);
+        setValue(GET_READY_DURATION);
+        setPhase(PHASES.GET_READY);
+        setRoundIndex(0);
+        setRoundRepIndex(0);
+        setExerciseIndex(0);
+        setExerciseRepIndex(0);
+    };
 
     const nextPhase = () => {
         switch (phase) {
@@ -156,6 +185,11 @@ function useTimer(workout: Workout): useTimerInterface {
         if (intervalRef.current) clearInterval(intervalRef.current);
     };
 
+    const loadWorkout = (newWorkout: Workout) => {
+        resetTimer();
+        setWorkout(newWorkout);
+        setExerciseName(newWorkout.rounds[0].exercises[0].name);
+    };
     const play = () => setIsRunning(true);
     const pause = () => setIsRunning(false);
 
@@ -174,6 +208,7 @@ function useTimer(workout: Workout): useTimerInterface {
     }, [value]);
 
     return {
+        isReady: workout.id !== 0 && workout.name !== "default",
         isRunning,
         value,
         phase,
@@ -182,6 +217,7 @@ function useTimer(workout: Workout): useTimerInterface {
         exerciseRepIndex,
         roundIndex,
         roundRepIndex,
+        loadWorkout,
         play,
         pause,
     };

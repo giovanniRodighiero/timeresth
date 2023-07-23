@@ -24,9 +24,33 @@ describe("useTimer", () => {
         vi.restoreAllMocks();
     });
 
+    it("Should not be ready if a workout is not provided", () => {
+        const { result } = renderHook(() => useTimer());
+
+        expect(result.current.isReady).toBeFalsy();
+        expect(result.current.exercise).toBe("default");
+    });
+
+    it("Should update the workout when loadWorkout is called", () => {
+        const { result } = renderHook(() => useTimer());
+
+        expect(result.current.isReady).toBeFalsy();
+        expect(result.current.exercise).toBe("default");
+
+        act(() => {
+            result.current.loadWorkout(mockWorkout);
+        });
+
+        expect(result.current.isReady).toBeTruthy();
+        expect(result.current.exercise).toBe(
+            mockWorkout.rounds[0].exercises[0].name
+        );
+    });
+
     it("Should be paused by default and on phase 0", () => {
         const { result } = renderHook(() => useTimer(mockWorkout));
 
+        expect(result.current.isReady).toBeTruthy();
         expect(result.current.isRunning).toBeFalsy();
         expect(result.current.value).toBe(5);
         expect(result.current.phase).toBe(0);
@@ -38,6 +62,7 @@ describe("useTimer", () => {
 
         vi.advanceTimersToNextTimer();
 
+        expect(result.current.isReady).toBeTruthy();
         expect(result.current.isRunning).toBeFalsy();
         expect(result.current.value).toBe(5);
         expect(result.current.phase).toBe(0);
@@ -55,6 +80,7 @@ describe("useTimer", () => {
         act(() => {
             result.current.play();
         });
+        expect(result.current.isReady).toBeTruthy();
         expect(result.current.isRunning).toBeTruthy();
         expect(result.current.value).toBe(5);
         expect(result.current.phase).toBe(0);
@@ -68,6 +94,7 @@ describe("useTimer", () => {
         act(() => {
             vi.advanceTimersToNextTimer();
         });
+        expect(result.current.isReady).toBeTruthy();
         expect(result.current.isRunning).toBeTruthy();
         expect(result.current.value).toBe(4);
         expect(result.current.phase).toBe(0);
@@ -81,6 +108,7 @@ describe("useTimer", () => {
         act(() => {
             vi.advanceTimersToNextTimer();
         });
+        expect(result.current.isReady).toBeTruthy();
         expect(result.current.isRunning).toBeTruthy();
         expect(result.current.value).toBe(3);
         expect(result.current.phase).toBe(0);
@@ -95,6 +123,7 @@ describe("useTimer", () => {
         act(() => {
             result.current.pause();
         });
+        expect(result.current.isReady).toBeTruthy();
         expect(result.current.isRunning).toBeFalsy();
         expect(result.current.value).toBe(3);
         expect(result.current.phase).toBe(0);

@@ -17,12 +17,10 @@ function SessionProvider({ children }) {
     React.useEffect(() => {
         setIsLoading(true);
         supabaseClient.auth.onAuthStateChange((event, session) => {
-            console.log(event, session);
             if (event === "SIGNED_OUT") setIsLoggedIn(false);
             if (event === "SIGNED_IN") setIsLoggedIn(true);
         });
         supabaseClient.auth.getSession().then(({ data }) => {
-            console.log(data.session);
             if (data.session) setIsLoggedIn(true);
             setIsLoading(false);
         });

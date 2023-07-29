@@ -57,6 +57,7 @@ function WorkoutUpdate() {
         setLoading(true);
         const result = await getWorkout(workoutId);
         if (result.error) {
+            //FIXME: handle errors
         } else if (result.workout) {
             workoutDispatch({
                 type: ACTIONS.INIT,

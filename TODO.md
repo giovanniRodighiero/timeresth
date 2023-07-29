@@ -1,13 +1,22 @@
 # TODO stuff
 
 ## Dev Env
-
 -   Install and configure eslint;
+-   Add hot reload
+
+## Misc/Components
+-   TopBar could receive a whole component instead of a callback for the back icon
+-   Design and implement a big loading component
+-   Design and implement a small loading component
 
 ## Homepage
-
--   Spinner component
+-  Add a loading component while fetching the workouts list
 
 ## WorkoutCard
 
--   Create a function to navigate to the execution page when the whole card is clicked;
+
+## WorkoutExecution
+-   Handle the error in the fetchWorkout function
+
+## WorkoutUpdate
+-   Handle the error in the fetchWorkout function

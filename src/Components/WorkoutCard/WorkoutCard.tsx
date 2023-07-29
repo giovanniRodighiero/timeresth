@@ -40,6 +40,7 @@ function WorkoutCard({ workout }: WorkoutCardProps) {
                     </h2>
                 </Link>
                 <Link
+                    onClick={e => e.stopPropagation()}
                     className="absolute top-1/2 right-2 -translate-y-1/2 bg-main text-dark"
                     to={`/workouts/${workout.id}/edit`}
                     aria-label="Edit workout"

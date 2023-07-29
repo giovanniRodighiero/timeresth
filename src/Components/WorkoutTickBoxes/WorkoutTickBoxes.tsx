@@ -26,7 +26,7 @@ function WorkoutTickBoxes({
     }, [count, checkedCount]);
 
     return (
-        <div className="flex justify-between gap-1">
+        <div className="flex w-full flex-wrap gap-1">
             {tickBoxes.map((checked, i) => (
                 <TickBox key={`tickbox-${i}`} checked={checked} />
             ))}

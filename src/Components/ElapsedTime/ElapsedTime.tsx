@@ -9,7 +9,7 @@ interface ElapsedTimeProps {
 function ElapsedTime({ seconds = 0 }: ElapsedTimeProps) {
     const time = new Date(seconds * 1000).toISOString().slice(11, 19);
     return (
-        <div className="flex w-full flex-col items-center justify-center rounded bg-white shadow-md">
+        <div className="flex w-full flex-col items-center justify-center rounded bg-white px-1 shadow-md">
             <Watch
                 size={30}
                 className="mb-2 text-main"

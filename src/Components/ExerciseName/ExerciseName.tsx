@@ -10,7 +10,7 @@ interface ExerciseNameProps {
 
 function ExerciseName({ isWorkTime = false, exercise }: ExerciseNameProps) {
     return (
-        <div className="flex w-full flex-col items-center justify-center rounded bg-white shadow-md">
+        <div className="flex h-full w-full flex-col items-center justify-center rounded bg-white shadow-md">
             <p className="mb-1 font-sans text-lg font-light">
                 {isWorkTime ? "now doing" : "up next"}
             </p>

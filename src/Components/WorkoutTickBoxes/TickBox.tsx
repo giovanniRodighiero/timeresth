@@ -11,7 +11,7 @@ function TickBox({ checked = false }: TickBoxProps) {
     const styles = React.useMemo(
         () =>
             classNames(
-                "h-6 min-w-[40px] max-w-[68px] rounded border-2 border-dark flex justify-center items-center",
+                "h-6 w-12 rounded border-2 border-dark flex justify-center items-center",
                 {
                     "bg-dark": checked,
                 }

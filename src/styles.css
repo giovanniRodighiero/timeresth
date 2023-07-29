@@ -10,7 +10,7 @@
 @tailwind utilities;
 
 html {
-    @apply text-dark;
+    @apply bg-white text-dark;
 }
 
 * {
@@ -35,8 +35,4 @@ html {
     --swiper-pagination-bullet-width: 15px;
     --swiper-pagination-bullet-height: 15px;
     --swiper-pagination-color: #e76f51;
-}
-
-.CircularProgressbar .CircularProgressbar-path {
-    stroke: #e76f51;
 }

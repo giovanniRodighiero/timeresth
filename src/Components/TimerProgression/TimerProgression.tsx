@@ -1,5 +1,8 @@
 import React from "react";
-import { CircularProgressbarWithChildren } from "react-circular-progressbar";
+import {
+    CircularProgressbarWithChildren,
+    buildStyles,
+} from "react-circular-progressbar";
 
 interface TimerProgressionProps {
     /** Timer is running training time or rest/brak */
@@ -21,8 +24,16 @@ function TimerProgression({
     percentage,
     seconds,
 }: TimerProgressionProps) {
+    const styles = React.useMemo(
+        () =>
+            buildStyles({
+                pathColor: isWorkTime ? "#e76f51" : "#006DB6",
+            }),
+        [isWorkTime]
+    );
+
     return (
-        <CircularProgressbarWithChildren value={percentage}>
+        <CircularProgressbarWithChildren value={percentage} styles={styles}>
             <span className="font-serif text-3xl">
                 {isWorkTime ? "work!" : "rest now"}
             </span>

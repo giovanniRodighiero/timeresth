@@ -17,6 +17,7 @@
 
 ## WorkoutExecution
 -   Handle the error in the fetchWorkout function
+-   Layout vertically centered
 
 ## WorkoutUpdate
 -   Handle the error in the fetchWorkout function

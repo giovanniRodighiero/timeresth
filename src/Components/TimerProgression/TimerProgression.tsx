@@ -4,9 +4,19 @@ import {
     buildStyles,
 } from "react-circular-progressbar";
 
+import PHASES from "../../types/timer.interface";
+
+const PHASES_LABELS = {
+    [PHASES.GET_READY]: "Get ready!",
+    [PHASES.WORK]: "Go!",
+    [PHASES.REST]: "Get some rest",
+    [PHASES.BREAK]: "Get some rest",
+    [PHASES.DONE]: "All done!",
+};
+
 interface TimerProgressionProps {
-    /** Timer is running training time or rest/brak */
-    isWorkTime?: boolean;
+    /** Which phase it the timer displaying */
+    phase: PHASES;
 
     /** Percentage of the circle */
     percentage: number;
@@ -20,23 +30,21 @@ interface TimerProgressionProps {
  * Circular timer with remaining seconds in the center.
  */
 function TimerProgression({
-    isWorkTime = false,
+    phase,
     percentage,
     seconds,
 }: TimerProgressionProps) {
     const styles = React.useMemo(
         () =>
             buildStyles({
-                pathColor: isWorkTime ? "#e76f51" : "#006DB6",
+                pathColor: phase === PHASES.WORK ? "#e76f51" : "#006DB6",
             }),
-        [isWorkTime]
+        [phase]
     );
 
     return (
         <CircularProgressbarWithChildren value={percentage} styles={styles}>
-            <span className="font-serif text-3xl">
-                {isWorkTime ? "work!" : "rest now"}
-            </span>
+            <span className="font-serif text-3xl">{PHASES_LABELS[phase]}</span>
             <p>
                 <span className="font-serif text-8xl">{seconds}</span>
                 <span className="font-sans text-3xl font-light">s</span>

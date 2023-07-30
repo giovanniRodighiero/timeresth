@@ -3,14 +3,8 @@ import React from "react";
 import Workout from "../../types/workout.interface";
 import Round from "../../types/round.interface";
 import Exercise from "../../types/exercise.interface";
+import PHASES from "../../types/timer.interface";
 
-export enum PHASES {
-    GET_READY,
-    WORK,
-    REST,
-    BREAK,
-    DONE,
-}
 const GET_READY_DURATION = 5;
 
 interface useTimerInterface {

@@ -34,10 +34,10 @@ describe("<TimerProgression />", () => {
     });
 
     it.each([
-        { phase: PHASES.BREAK, expected: "Get some rest" },
+        { phase: PHASES.BREAK, expected: "Rest now" },
         { phase: PHASES.DONE, expected: "All done!" },
         { phase: PHASES.GET_READY, expected: "Get ready!" },
-        { phase: PHASES.REST, expected: "Get some rest" },
+        { phase: PHASES.REST, expected: "Rest now" },
         { phase: PHASES.WORK, expected: "Go!" },
     ])(
         "Should display the correct label depending on timer phase $phase",

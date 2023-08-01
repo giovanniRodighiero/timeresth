@@ -9,8 +9,8 @@ import PHASES from "../../types/timer.interface";
 const PHASES_LABELS = {
     [PHASES.GET_READY]: "Get ready!",
     [PHASES.WORK]: "Go!",
-    [PHASES.REST]: "Get some rest",
-    [PHASES.BREAK]: "Get some rest",
+    [PHASES.REST]: "Rest now",
+    [PHASES.BREAK]: "Rest now",
     [PHASES.DONE]: "All done!",
 };
 

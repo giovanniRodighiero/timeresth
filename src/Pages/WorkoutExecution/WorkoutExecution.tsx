@@ -43,30 +43,32 @@ function WorkoutExecution({}) {
     }, []);
 
     return (
-        <main className="w-full p-2">
+        <main className="w-full">
             <TopBar
                 onBack={onBack}
                 title={Timer.workout.name || "Loading workout"}
             />
             {!isLoading && (
-                <div>
-                    <div className="mb-3 flex items-center">
-                        <SetAndRepsProgress
-                            label="rounds"
-                            currentSet={Timer.roundIndex + 1}
-                            totalSets={Timer.workout.rounds.length}
-                            currentRep={Timer.roundRepIndex}
-                            totalReps={Timer.round.repeat}
-                        />
-                    </div>
-                    <div className="mb-4 flex items-center">
-                        <SetAndRepsProgress
-                            label="exercises"
-                            currentSet={Timer.exerciseIndex + 1}
-                            totalSets={Timer.round.exercises.length}
-                            currentRep={Timer.exerciseRepIndex}
-                            totalReps={Timer.exercise.repeat}
-                        />
+                <div className="flex h-[85vh] flex-col justify-between px-2">
+                    <div className="mb-4">
+                        <div className="mb-3 flex items-center">
+                            <SetAndRepsProgress
+                                label="rounds"
+                                currentSet={Timer.roundIndex + 1}
+                                totalSets={Timer.workout.rounds.length}
+                                currentRep={Timer.roundRepIndex}
+                                totalReps={Timer.round.repeat}
+                            />
+                        </div>
+                        <div className="flex items-center">
+                            <SetAndRepsProgress
+                                label="exercises"
+                                currentSet={Timer.exerciseIndex + 1}
+                                totalSets={Timer.round.exercises.length}
+                                currentRep={Timer.exerciseRepIndex}
+                                totalReps={Timer.exercise.repeat}
+                            />
+                        </div>
                     </div>
                     <div className="mx-auto mb-4 w-64">
                         <TimerProgression

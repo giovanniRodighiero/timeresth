@@ -7,9 +7,12 @@ export default {
     component: BaseButtonCmpt,
 };
 
-const Template = args => <BaseButtonCmpt>{args.text}</BaseButtonCmpt>;
+const Template = args => (
+    <BaseButtonCmpt primary={args.primary}>{args.text}</BaseButtonCmpt>
+);
 
 export const BaseButton = Template.bind({});
 BaseButton.args = {
     text: "button text",
+    primary: true,
 };

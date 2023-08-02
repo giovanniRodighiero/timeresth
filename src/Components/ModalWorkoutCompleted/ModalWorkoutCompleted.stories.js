@@ -12,4 +12,5 @@ const Template = args => <ModalWorkoutCompletedCmpt {...args} />;
 export const ModalWorkoutCompleted = Template.bind({});
 ModalWorkoutCompleted.args = {
     isVisible: true,
+    elapsedTime: 1234,
 };

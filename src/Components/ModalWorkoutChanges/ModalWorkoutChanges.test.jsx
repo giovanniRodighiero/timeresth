@@ -18,9 +18,7 @@ describe("<ModalWorkoutChanges />", () => {
 
     it("Should forward the provided props to Modal component", () => {
         const spyModal = vi.spyOn(Modal, "default");
-        render(
-            <ModalWorkoutChanges {...mockProps}>contents</ModalWorkoutChanges>
-        );
+        render(<ModalWorkoutChanges {...mockProps} />);
 
         expect(spyModal).toHaveBeenCalledWith(
             {

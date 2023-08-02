@@ -5,7 +5,7 @@ import Title from "../Title";
 import usePortal from "./usePortal";
 
 interface ModalProps {
-    children: JSX.Element[];
+    children: JSX.Element | JSX.Element[];
     title?: string;
     isVisible?: boolean;
     onClose: () => void;

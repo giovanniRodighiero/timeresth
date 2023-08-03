@@ -7,6 +7,7 @@ import TimerProgression from "../../Components/TimerProgression/TimerProgression
 import ExerciseName from "../../Components/ExerciseName/ExerciseName";
 import ElapsedTime from "../../Components/ElapsedTime/ElapsedTime";
 import PlayPauseButton from "../../Components/PlayPauseButton/PlayPauseButton";
+import ModalWorkoutCompleted from "../../Components/ModalWorkoutCompleted";
 
 import useTimer from "./useTimer";
 import { getWorkout } from "../../services/Api";
@@ -47,6 +48,11 @@ function WorkoutExecution({}) {
             <TopBar
                 onBack={onBack}
                 title={Timer.workout.name || "Loading workout"}
+            />
+            <ModalWorkoutCompleted
+                isVisible={Timer.phase === PHASES.DONE}
+                onClose={onBack}
+                elapsedTime={Timer.elapsedTime}
             />
             {!isLoading && (
                 <div className="flex h-[85vh] flex-col justify-between px-2">

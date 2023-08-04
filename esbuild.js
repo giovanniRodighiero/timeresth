@@ -31,6 +31,12 @@ switch (process.env.NODE_ENV) {
             .catch(() => process.exit(1));
         break;
 
+    case "production":
+        EsBuild.build({ ...BASE_CONFIG, minify: true })
+            .then(() => console.log("built"))
+            .catch(console.error);
+        break;
+
     case "test":
         EsBuild.build(BASE_CONFIG)
             .then(() => console.log("css generated"))

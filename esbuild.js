@@ -3,6 +3,7 @@ const EsBuild = require("esbuild");
 const serve = require("./tools/serve");
 const postCssPlugin = require("./tools/postCssPlugin");
 const dotEnvPlugin = require("./tools/dotEnvPlugin");
+const copyAssets = require("./tools/copyAssets");
 
 console.info("NODE_ENV is set to:", process.env.NODE_ENV);
 
@@ -14,7 +15,11 @@ const BASE_CONFIG = {
     platform: "browser",
     bundle: true,
     outdir: "dist",
-    plugins: [dotEnvPlugin, postCssPlugin],
+    plugins: [
+        dotEnvPlugin,
+        postCssPlugin,
+        copyAssets
+    ],
     define: {
         ENV: {},
     },

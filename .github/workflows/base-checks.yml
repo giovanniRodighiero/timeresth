@@ -1,4 +1,4 @@
-name: base-checks
+name: BASE_CHECKS
 on: [push]
 jobs:
     types-checking:

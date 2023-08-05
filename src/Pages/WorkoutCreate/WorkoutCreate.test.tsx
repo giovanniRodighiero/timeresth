@@ -1,5 +1,5 @@
 import React from "react";
-import { act, render } from "../../../tools/testUtils";
+import { act, render, userEvent, screen } from "../../../tools/testUtils";
 
 import * as Api from "../../services/Api";
 import * as ModalWorkoutChanges from "../../Components/ModalWorkoutChanges";
@@ -41,7 +41,7 @@ describe("<WorkoutCreate />", () => {
         );
     });
 
-    it("Should call createWorkout from API and then navigate to homepage when the save callback is clicked", async () => {
+    it("Should call createWorkout API and then navigate to homepage when save is clicked in the confirmation modal", async () => {
         render(<WorkoutCreate />);
 
         await spyModal.mock.calls[0][0].onSaveChanges();
@@ -49,16 +49,25 @@ describe("<WorkoutCreate />", () => {
             hasChanges: false,
             id: 123,
             name: "new workout",
-            rounds: [{ repeat: 1, break: 45, exercises: [] }],
+            rounds: [
+                {
+                    repeat: 1,
+                    break: 45,
+                    exercises: [
+                        { name: "exercise one", work: 10, rest: 15, repeat: 1 },
+                    ],
+                },
+            ],
         });
         expect(useNavigate).toHaveBeenCalledTimes(1);
         expect(useNavigate).toHaveBeenCalledWith("/");
     });
 
-    it("Should navigate to homepage when the discard callback is clicked", async () => {
+    it("Should navigate to homepage when discard is clicked in the confirmation modal", async () => {
         render(<WorkoutCreate />);
 
         await spyModal.mock.calls[0][0].onDiscardChanges();
+        expect(Api.createWorkout).not.toHaveBeenCalled();
         expect(useNavigate).toHaveBeenCalledTimes(1);
         expect(useNavigate).toHaveBeenCalledWith("/");
     });
@@ -107,7 +116,7 @@ describe("<WorkoutCreate />", () => {
         );
     });
 
-    it("Should call WorkoutEdit with the default empty workout", () => {
+    it("Should call WorkoutEdit with the default workout", () => {
         render(<WorkoutCreate />);
 
         expect(spyWorkoutEdit).toHaveBeenCalledWith(
@@ -116,11 +125,48 @@ describe("<WorkoutCreate />", () => {
                     hasChanges: false,
                     id: 123,
                     name: "new workout",
-                    rounds: [{ repeat: 1, break: 45, exercises: [] }],
+                    rounds: [
+                        {
+                            repeat: 1,
+                            break: 45,
+                            exercises: [
+                                {
+                                    name: "exercise one",
+                                    work: 10,
+                                    rest: 15,
+                                    repeat: 1,
+                                },
+                            ],
+                        },
+                    ],
                 },
                 workoutDispatch: expect.any(Function),
+                onSave: expect.any(Function),
             },
             {}
         );
+    });
+
+    it("Should call createWorkout API and then navigate to homepage when save is clicked from bottom page button", async () => {
+        const user = userEvent.setup();
+        render(<WorkoutCreate />);
+
+        await user.click(screen.getByRole("button", { name: "save" }));
+        expect(Api.createWorkout).toHaveBeenCalledWith({
+            hasChanges: false,
+            id: 123,
+            name: "new workout",
+            rounds: [
+                {
+                    repeat: 1,
+                    break: 45,
+                    exercises: [
+                        { name: "exercise one", work: 10, rest: 15, repeat: 1 },
+                    ],
+                },
+            ],
+        });
+        expect(useNavigate).toHaveBeenCalledTimes(1);
+        expect(useNavigate).toHaveBeenCalledWith("/");
     });
 });

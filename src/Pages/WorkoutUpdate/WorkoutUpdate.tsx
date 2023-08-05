@@ -40,6 +40,7 @@ function WorkoutUpdate() {
     const onSaveChanges = async () => {
         await updateWorkout(workoutId, workout as Workout);
         navigate("/");
+        return true;
     };
     const onDiscardChanges = () => navigate("/");
 
@@ -89,6 +90,7 @@ function WorkoutUpdate() {
                 <WorkoutEdit
                     workout={workout}
                     workoutDispatch={workoutDispatch}
+                    onSave={onSaveChanges}
                 />
             )}
         </div>

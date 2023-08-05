@@ -21,12 +21,13 @@ const SWIPER_PAGINATION = { clickable: true };
 interface WorkoutUpdateProps {
     workout: EditableWorkout;
     workoutDispatch: React.Dispatch<Action>;
+    onSave: () => Promise<boolean>
 }
 
 /**
  * Update workout page
  */
-function WorkoutUpdate({ workout, workoutDispatch }: WorkoutUpdateProps) {
+function WorkoutUpdate({ workout, workoutDispatch, onSave }: WorkoutUpdateProps) {
     const [activeRoundIndex, setActiveRoundIndex] = React.useState(0);
 
     const totalTime = React.useMemo(
@@ -174,7 +175,7 @@ function WorkoutUpdate({ workout, workoutDispatch }: WorkoutUpdateProps) {
                     <span className="text-3xl">{totalTime}</span>
                 </div>
                 <div className="flex-initial basis-1/3 text-right">
-                    <BaseButton onClick={onStart}>start</BaseButton>
+                    <BaseButton onClick={onSave}>save</BaseButton>
                 </div>
             </footer>
         </>

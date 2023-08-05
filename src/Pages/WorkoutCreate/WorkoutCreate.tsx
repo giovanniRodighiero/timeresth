@@ -31,6 +31,7 @@ function WorkoutCreate() {
     const onSaveChanges = async () => {
         await createWorkout(workout as Workout);
         navigate("/");
+        return true;
     };
     const onDiscardChanges = () => navigate("/");
 
@@ -49,7 +50,7 @@ function WorkoutCreate() {
                 onSaveChanges={onSaveChanges}
             />
             <TopBar onBack={onBack} title="New workout" />
-            <WorkoutEdit workout={workout} workoutDispatch={workoutDispatch} />
+            <WorkoutEdit workout={workout} workoutDispatch={workoutDispatch} onSave={onSaveChanges}/>
         </div>
     );
 }

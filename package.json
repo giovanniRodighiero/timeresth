@@ -15,7 +15,7 @@
         "prepare": "husky install"
     },
     "lint-staged": {
-        "src/**/*(!.png)": [
+        "src/**/*!(.png)": [
             "prettier --write"
         ],
         "src/**/*.ts?(x)": [

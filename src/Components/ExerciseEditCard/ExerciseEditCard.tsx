@@ -14,7 +14,7 @@ interface ExerciseEditCardProps {
         fieldName: A,
         value: FieldValue<A>
     ) => void;
-    onDeleteExercise: (
+    onDeleteExercise?: (
         event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => void;
 }
@@ -41,13 +41,13 @@ function ExerciseEditCard({
                         inputProps={{ placeholder: "exercise name" }}
                     />
                 </div>
-                <button
+                { !!onDeleteExercise && <button
                     className="ml-2 flex justify-center"
                     onClick={onDeleteExercise}
                     aria-label="delete exercise"
                 >
                     <Trash2 size={28} />
-                </button>
+                </button>}
             </div>
 
             <ExerciseEditCardParameter

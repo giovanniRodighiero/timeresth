@@ -103,8 +103,7 @@ function WorkoutUpdate({ workout, workoutDispatch, onSave }: WorkoutUpdateProps)
         });
     };
 
-    const onStart = () => console.log("start wo", workout);
-
+    const currentRound = workout.rounds[activeRoundIndex];
     return (
         <>
             <main className="px-2">
@@ -130,7 +129,7 @@ function WorkoutUpdate({ workout, workoutDispatch, onSave }: WorkoutUpdateProps)
                         label="Repeat"
                         min={1}
                         setValue={onRoundUpdate("repeat")}
-                        value={workout.rounds[activeRoundIndex].repeat}
+                        value={currentRound.repeat}
                     />
                 </div>
                 <div className="mb-5">
@@ -138,7 +137,7 @@ function WorkoutUpdate({ workout, workoutDispatch, onSave }: WorkoutUpdateProps)
                         label="Break"
                         min={0}
                         setValue={onRoundUpdate("break")}
-                        value={workout.rounds[activeRoundIndex].break}
+                        value={currentRound.break}
                     />
                 </div>
 
@@ -149,13 +148,13 @@ function WorkoutUpdate({ workout, workoutDispatch, onSave }: WorkoutUpdateProps)
                     pagination={SWIPER_PAGINATION}
                     modules={SWIPER_MODULES}
                 >
-                    {workout.rounds[activeRoundIndex].exercises.map(
+                    {currentRound.exercises.map(
                         (exercise, i) => (
                             <SwiperSlide key={`exercise_${i}`}>
                                 <div className="pb-9">
                                     <ExerciseEditCard
                                         onUpdateExercise={onExerciseUpdate(i)}
-                                        onDeleteExercise={onExerciseDelete(i)}
+                                        onDeleteExercise={currentRound.exercises.length > 1 ? onExerciseDelete(i) : undefined}
                                         exercise={exercise}
                                     />
                                 </div>

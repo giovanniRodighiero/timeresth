@@ -128,7 +128,7 @@ function RoundTabs({
 }: RoundTabsProps) {
     return (
         <div className="relative flex h-11 w-full">
-            <div className="flex h-full w-10/12 overflow-scroll">
+            <div className="flex h-full w-10/12 overflow-x-scroll no-scrollbar">
                 {tabs.map(t =>
                     t === activeTabIndex ? (
                         <ActiveTab

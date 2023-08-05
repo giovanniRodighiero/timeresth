@@ -1,4 +1,4 @@
-import Round from "./round.interface";
+import Round, { EditableRound } from "./round.interface";
 
 /** A complete workout. */
 interface Workout {
@@ -10,6 +10,12 @@ interface Workout {
 
     /** Workout's rounds. */
     rounds: Round[];
+}
+
+/** A complete workout. */
+export interface EditableWorkout extends Omit<Workout, 'rounds'> {
+    /** Workout's rounds. */
+    rounds: EditableRound[];
 }
 
 export default Workout;

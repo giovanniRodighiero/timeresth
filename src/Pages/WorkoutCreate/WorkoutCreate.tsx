@@ -8,6 +8,7 @@ import ModalWorkoutChanges from "../../Components/ModalWorkoutChanges";
 
 import workoutEditReducer from "../../Components/WorkoutEdit/reducer";
 import { createWorkout } from "../../services/Api";
+import Workout from "../../types/workout.interface";
 
 /**
  * Create workout page
@@ -28,7 +29,7 @@ function WorkoutCreate() {
     /** MODAL */
     const onModalClose = () => setIsModalVisible(false);
     const onSaveChanges = async () => {
-        await createWorkout(workout);
+        await createWorkout(workout as Workout);
         navigate("/");
     };
     const onDiscardChanges = () => navigate("/");

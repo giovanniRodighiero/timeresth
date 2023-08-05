@@ -27,7 +27,9 @@ function ModalWorkoutChanges({
             </p>
             <div className="flex justify-between">
                 <div className="mr-1 flex-1">
-                    <BaseButton onClick={onDiscardChanges}>discard</BaseButton>
+                    <BaseButton onClick={onDiscardChanges} primary={false}>
+                        discard
+                    </BaseButton>
                 </div>
                 <div className="mr-1 flex-1">
                     <BaseButton onClick={onSaveChanges}>save</BaseButton>

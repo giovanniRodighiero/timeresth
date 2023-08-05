@@ -28,7 +28,7 @@ describe("<ExerciseEditCard />", () => {
         vi.clearAllMocks();
     });
 
-    it("Should display a button to delete the exercise", async () => {
+    it("Should display a button to delete the exercise when the callback is provided", async () => {
         const user = userEvent.setup();
         render(<ExerciseEditCard {...mockProps} />);
 
@@ -37,6 +37,12 @@ describe("<ExerciseEditCard />", () => {
 
         await user.click($btn);
         expect(mockProps.onDeleteExercise).toHaveBeenCalled();
+    });
+
+    it("Should not display a button to delete the exercise when the callback is not provided", async () => {
+        render(<ExerciseEditCard {...mockProps} onDeleteExercise={undefined} />);
+
+        expect(screen.queryByLabelText("delete exercise")).toBeNull();
     });
 
     it("Should use the InputField component to handle the name parameter", () => {

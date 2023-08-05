@@ -21,7 +21,15 @@ function WorkoutCreate() {
             hasChanges: false,
             id: 123,
             name: "new workout",
-            rounds: [{ repeat: 1, break: 45, exercises: [] }],
+            rounds: [
+                {
+                    repeat: 1,
+                    break: 45,
+                    exercises: [
+                        { name: "exercise one", work: 10, rest: 15, repeat: 1 },
+                    ],
+                },
+            ],
         }
     );
     const navigate = useNavigate();
@@ -50,7 +58,11 @@ function WorkoutCreate() {
                 onSaveChanges={onSaveChanges}
             />
             <TopBar onBack={onBack} title="New workout" />
-            <WorkoutEdit workout={workout} workoutDispatch={workoutDispatch} onSave={onSaveChanges}/>
+            <WorkoutEdit
+                workout={workout}
+                workoutDispatch={workoutDispatch}
+                onSave={onSaveChanges}
+            />
         </div>
     );
 }

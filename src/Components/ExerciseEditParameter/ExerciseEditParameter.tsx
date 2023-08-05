@@ -15,7 +15,7 @@ interface ExerciseEditCardParameterProps {
     min?: number;
 
     /** Input current value */
-    value: number;
+    value: number | "";
 
     /** Function to change the input value */
     setValue: (newValue: number | "") => void;
@@ -50,9 +50,9 @@ function ExerciseEditCardParameter({
         if (!isNaN(valueAsNumber)) setValue(valueAsNumber);
         else setValue("");
     };
-    const onPlusClick = () => setValue(value + 1);
+    const onPlusClick = () => setValue(!value ? min : value + 1);
     const onMinusClick = () => {
-        if (value > min) setValue(value - 1);
+        if (!!value && value > min) setValue(value - 1);
     };
 
     return (

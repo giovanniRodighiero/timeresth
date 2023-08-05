@@ -1,7 +1,7 @@
 import React from "react";
 import { Trash2 } from "react-feather";
 
-import Exercise from "../../types/exercise.interface";
+import { EditableExercise } from "../../types/exercise.interface";
 import InputField from "../InputField";
 import ExerciseEditCardParameter from "../ExerciseEditParameter";
 
@@ -9,7 +9,7 @@ type FieldName = "name" | "repeat" | "work" | "rest";
 type FieldValue<T> = T extends "name" ? string : number;
 
 interface ExerciseEditCardProps {
-    exercise: Exercise;
+    exercise: EditableExercise;
     onUpdateExercise: <A extends FieldName>(
         fieldName: A,
         value: FieldValue<A>

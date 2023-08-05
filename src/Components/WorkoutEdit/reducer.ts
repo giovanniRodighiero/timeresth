@@ -1,6 +1,6 @@
 import Exercise from "../../types/exercise.interface";
 import Round from "../../types/round.interface";
-import Workout from "../../types/workout.interface";
+import Workout, { EditableWorkout } from "../../types/workout.interface";
 
 export enum ACTIONS {
     INIT = "INIT",
@@ -53,7 +53,7 @@ type UpdateExerciseNumAction = {
         round: number;
         exercise: number;
         field: Exclude<keyof Exercise, "name">;
-        value: number;
+        value: number | "";
     };
 };
 
@@ -94,7 +94,7 @@ export type Action =
     | AddExerciseAction;
 
 function workoutEditReducer(
-    draft: { hasChanges: boolean } & Workout,
+    draft: { hasChanges: boolean } & EditableWorkout,
     action: Action
 ): void {
     const { type, payload } = action;

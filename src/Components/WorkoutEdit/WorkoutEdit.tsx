@@ -11,7 +11,7 @@ import BaseButton from "../BaseButton/BaseButton";
 import { ACTIONS, Action } from "./reducer";
 import calcWorkoutDuration from "../../utils/calcWorkoutDuration";
 
-import Workout from "../../types/workout.interface";
+import Workout, { EditableWorkout } from "../../types/workout.interface";
 import Round from "../../types/round.interface";
 import Exercise from "../../types/exercise.interface";
 
@@ -19,7 +19,7 @@ const SWIPER_MODULES = [Pagination];
 const SWIPER_PAGINATION = { clickable: true };
 
 interface WorkoutUpdateProps {
-    workout: Workout;
+    workout: EditableWorkout;
     workoutDispatch: React.Dispatch<Action>;
 }
 
@@ -30,7 +30,7 @@ function WorkoutUpdate({ workout, workoutDispatch }: WorkoutUpdateProps) {
     const [activeRoundIndex, setActiveRoundIndex] = React.useState(0);
 
     const totalTime = React.useMemo(
-        () => calcWorkoutDuration(workout).toISOString().substring(11, 19),
+        () => calcWorkoutDuration(workout as Workout).toISOString().substring(11, 19),
         [workout.rounds]
     );
 
@@ -78,7 +78,7 @@ function WorkoutUpdate({ workout, workoutDispatch }: WorkoutUpdateProps) {
                         value,
                     },
                 });
-            else if (field !== "name" && typeof value === "number")
+            else if (field !== "name" && (typeof value === "number" || value === ''))
                 workoutDispatch({
                     type: ACTIONS.UPDATE_EXERCISE_NUM,
                     payload: {

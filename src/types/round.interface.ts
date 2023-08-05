@@ -1,4 +1,4 @@
-import Exercise from "./exercise.interface";
+import Exercise, { EditableExercise } from "./exercise.interface";
 
 /** A workout's round. */
 interface Round {
@@ -10,6 +10,12 @@ interface Round {
 
     /** Round's exercises. */
     exercises: Exercise[];
+}
+
+/** A workout's round. */
+export interface EditableRound extends Omit<Round, "exercises"> {
+    /** Round's exercises. */
+    exercises: EditableExercise[];
 }
 
 export default Round;

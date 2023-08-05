@@ -10,6 +10,7 @@ import workoutEditReducer, {
     ACTIONS,
 } from "../../Components/WorkoutEdit/reducer";
 import { deleteWorkout, getWorkout, updateWorkout } from "../../services/Api";
+import Workout from "../../types/workout.interface";
 
 type RouteParams = {
     workoutId: string;
@@ -37,7 +38,7 @@ function WorkoutUpdate() {
     /** MODAL */
     const onModalClose = () => setIsModalVisible(false);
     const onSaveChanges = async () => {
-        await updateWorkout(workoutId, workout);
+        await updateWorkout(workoutId, workout as Workout);
         navigate("/");
     };
     const onDiscardChanges = () => navigate("/");

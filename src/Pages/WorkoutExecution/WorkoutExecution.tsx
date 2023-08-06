@@ -10,8 +10,11 @@ import PlayPauseButton from "../../Components/PlayPauseButton/PlayPauseButton";
 import ModalWorkoutCompleted from "../../Components/ModalWorkoutCompleted";
 
 import useTimer from "./useTimer";
+import useSoundEffect from "./useSoundEffects";
 import { getWorkout } from "../../services/Api";
 import PHASES from "../../types/timer.interface";
+
+const NOTIFICATION_TRESHOLD = 3; // seconds
 
 type RouteParams = {
     workoutId: string;
@@ -23,10 +26,16 @@ function WorkoutExecution({}) {
     const { workoutId: idAsString } = useParams<RouteParams>() as RouteParams;
 
     const Timer = useTimer();
+    const SoundEffects = useSoundEffect();
 
     const workoutId = React.useMemo(() => parseInt(idAsString), [idAsString]);
 
     const onBack = () => navigate("/");
+
+    const onPlay = () => {
+        SoundEffects.loadAudios();
+        Timer.play();
+    };
 
     const fetchWorkout = async () => {
         setLoading(true);
@@ -38,6 +47,18 @@ function WorkoutExecution({}) {
         }
         setLoading(false);
     };
+
+    React.useEffect(() => {
+        if (Timer.value <= NOTIFICATION_TRESHOLD) {
+            if (Timer.value === 0) {
+                window.navigator.vibrate(1000);
+                SoundEffects.playLongBeep();
+            } else {
+                window.navigator.vibrate(300);
+                SoundEffects.playShortBeep();
+            }
+        }
+    }, [Timer.value]);
 
     React.useEffect(() => {
         fetchWorkout();
@@ -98,7 +119,7 @@ function WorkoutExecution({}) {
                         <PlayPauseButton
                             isPlaying={Timer.isRunning}
                             onPause={Timer.pause}
-                            onPlay={Timer.play}
+                            onPlay={onPlay}
                         />
                     </div>
                 </div>

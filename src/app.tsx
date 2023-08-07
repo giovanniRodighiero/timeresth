@@ -2,30 +2,24 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { ProtectedRoute, SessionProvider } from "./src/services/auth";
-import Login from "./src/Pages/Login";
-import HomePage from "./src/Pages/Homepage";
-import WorkoutsList from "./src/Pages/WorkoutsList";
-import WorkoutUpdate from "./src/Pages/WorkoutUpdate";
-import WorkoutExecution from "./src/Pages/WorkoutExecution";
-import WorkoutCreate from "./src/Pages/WorkoutCreate/WorkoutCreate";
-import NotFound from "./src/Pages/NotFound";
+import { ProtectedRoute, SessionProvider } from "./services/auth";
+import Login from "./Pages/Login";
+import HomePage from "./Pages/Homepage";
+import WorkoutsList from "./Pages/WorkoutsList";
+import WorkoutUpdate from "./Pages/WorkoutUpdate";
+import WorkoutExecution from "./Pages/WorkoutExecution";
+import WorkoutCreate from "./Pages/WorkoutCreate/WorkoutCreate";
+import NotFound from "./Pages/NotFound";
 
-const root = createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById("root")!);
 root.render(
     <React.StrictMode>
         <BrowserRouter>
             <SessionProvider>
                 <Routes>
                     <Route path="/" element={<ProtectedRoute />}>
-                        <Route
-                            path=""
-                            element={<HomePage />}
-                        />
-                        <Route
-                            path="workouts"
-                            element={<WorkoutsList />}
-                        />
+                        <Route path="" element={<HomePage />} />
+                        <Route path="workouts" element={<WorkoutsList />} />
                         <Route
                             path="workouts/new"
                             element={<WorkoutCreate />}

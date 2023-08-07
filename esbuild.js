@@ -3,13 +3,16 @@ const EsBuild = require("esbuild");
 const serve = require("./tools/serve");
 const postCssPlugin = require("./tools/postCssPlugin");
 const dotEnvPlugin = require("./tools/dotEnvPlugin");
-const copyAssets = require("./tools/copyAssets");
+const copyAssetsPlugin = require("./tools/copyAssetsPlugin");
+const ejsPlugin = require("./tools/ejsPlugin");
+
+const templateData = require('./rootPageData');
 
 console.info("NODE_ENV is set to:", process.env.NODE_ENV);
 
 const BASE_CONFIG = {
     entryPoints: {
-        main: "app.jsx",
+        main: "./src/app.jsx",
     },
     sourcemap: true,
     platform: "browser",
@@ -18,7 +21,8 @@ const BASE_CONFIG = {
     plugins: [
         dotEnvPlugin,
         postCssPlugin,
-        copyAssets
+        copyAssetsPlugin,
+        ejsPlugin({ templateData })
     ],
     define: {
         ENV: {},
